@@ -14,13 +14,18 @@ function Main() {
   }
 
   return (
-    <div>
+    
+    <div className='main-page'>
       <h1>Main Page</h1>
+      <div className='nav-links'>
       <Link to="/login">Login</Link>
       <br></br>
       <Link to="/signup">create ID</Link>
       <br></br>
-      <h2><Link to="/CreateCV">Create one!</Link></h2>
+      </div>
+      <div className='create-cv-button'>
+      <h2><Link to="/CreateCV" className='create-cv-link'>Create one!</Link></h2>
+      </div>
     </div>
   );
 }

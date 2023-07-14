@@ -14,7 +14,7 @@ app.get('*',(req,res)=>{
 app.post('/dologin',async (req,res)=>{
     try{
       await client.connect();
-      userdata=client.db('Users').collection('person');
+      userdata=client.db('Users').collection('employees');
       const result=await userdata.find(req.body).toArray();
       if(result.length>0)
       {
@@ -32,11 +32,47 @@ app.post('/dologin',async (req,res)=>{
   
   });
 
+  app.post('/checkid',async (req,res)=>{
+    try{
+      await client.connect();
+      userdata=client.db('Users').collection('employees');
+      const result=await userdata.find(req.body).toArray();
+    if(result.length>0)
+    {
+      res.json("exist");
+    }
+    else
+    {
+      res.json("OK");
+    }
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
+  app.post('/dosignup',async (req,res)=>{
+    try{
+      await client.connect();
+      userdata=client.db('Users').collection('employees');
+      await userdata.insertOne(req.body)
+      res.json({result:"OK"})
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
 server.listen(80,()=>{
     console.log("Server on 80")
 });
 
-const uri = "mongodb+srv://gloveman50:zohCzGt3lh6icZKl@clustermad.qjzy8y9.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://gloveman:holahola@data.le9clcc.mongodb.net/?retryWrites=true&w=majority";
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,

@@ -1,8 +1,13 @@
 import React, { useState ,useEffect} from 'react';
+import axios from 'axios';
 import './signup.css';
+import { useNavigate } from 'react-router-dom/dist';
 
 function Signup() {
+  const navigate=useNavigate()
   const [username, setUsername] = useState('');
+  const [CheckResult, setCheckResult] = useState(true);
+  const [resulttext, setresulttext] = useState('');
   const [password, setPassword] = useState('');
   const [job, setJob] = useState('');
   const [duty, setDuty] = useState('');
@@ -39,15 +44,50 @@ function Signup() {
   }
   const handleSubmit = (event) => {
     event.preventDefault();
-    // 여기서 username과 password를 사용하여 로그인 로직을 처리합니다.
-    // 예를 들어 API를 호출하여 로그인을 시도할 수 있습니다.
-    console.log(`Logging in with username: ${username} and password: ${password}`);
+    if(CheckResult){
+    axios({
+      method:'post',
+      url:'/dosignup',
+      data:{
+        'id':username,
+        'password':password,
+        'job':job,
+        'duty':duty,
+        'school':school,
+        'career':career,
+        'experiences':experienceDetails
+      }
+    }).then(response=>{
+      if(response.data.result==="OK")
+      {
+        navigate('/')
+      }
+    });
+  }
+  else
+  {
+
+  }
   }
 
   const handleUsernameCheck = () => {
-    console.log(`Checking if username: ${username} is available`);
-    // 여기서 백엔드 API를 호출하여 username이 사용 가능한지 검사합니다.
-    // ...
+    axios({
+      method:'post',
+      url:'/checkid',
+      data:{
+        'id':username
+      }
+    }).then(response=>{
+      if(response.data==="exist")
+      {
+        setCheckResult(false)
+        setresulttext("이미 존재하는 ID입니다.")
+      }
+      else{
+        setCheckResult(true)
+        setresulttext("사용 가능한 ID입니다.")
+      }
+    });
   }
 
   const renderDuties = () => {
@@ -80,7 +120,7 @@ function Signup() {
         return ;
     }
   }
-
+  
   return (
     <div>
       <h1>Signup Page</h1>
@@ -88,7 +128,8 @@ function Signup() {
         <label>
           ID:
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <button onClick={handleUsernameCheck}>중복확인</button>
+        <button type="button" onClick={handleUsernameCheck}>중복확인</button>
+        {resulttext}
         </label>
         <label>
           Password:
@@ -150,7 +191,6 @@ function Signup() {
         
         <input type="submit" value="Submit" />
       </form>
-        
     </div>
   );
 }

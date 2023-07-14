@@ -22,7 +22,7 @@ function LoginPage() {
     }).then(response=>{
       if(response.data.result=="SUCCESS")
       {
-        navigate('/createCV')
+        navigate('/')
       }
       else{
         setResult("Try again")
