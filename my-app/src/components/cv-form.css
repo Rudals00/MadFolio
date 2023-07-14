@@ -1,0 +1,45 @@
+.cv-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  
+  .cv-form h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  .cv-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cv-form label {
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .cv-form input[type="text"], .cv-form input[type="email"], .cv-form textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .cv-form input[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cv-form input[type="submit"]:hover {
+    background-color: #0056b3;
+  }

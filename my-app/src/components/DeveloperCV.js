@@ -1,27 +1,36 @@
 import React from 'react';
+import './cv-form.css';
 
 function DeveloperCV() {
   return (
-    <div>
-      <h1>Developer CV</h1>
+    <div className="cv-form">
+      <h1>DeveloperCV</h1>
       <form>
         <label>
-          Name:
+          이름:
           <input type="text" name="name" />
         </label>
         <label>
-          Email:
+          이메일:
           <input type="email" name="email" />
         </label>
         <label>
-          Programming Languages:
+          기술 스택:
           <input type="text" name="languages" />
         </label>
         <label>
-          Projects:
+          프로젝트:
           <textarea name="projects"></textarea>
         </label>
-        <input type="submit" value="Submit" />
+        <label>
+          교육:
+          <input type="text" name="education" />
+        </label>
+        <label>
+          GitHub 링크:
+          <input type="text" name="github" />
+        </label>
+        <input type="submit" value="제출" />
       </form>
     </div>
   );

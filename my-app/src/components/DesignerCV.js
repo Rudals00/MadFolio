@@ -1,25 +1,34 @@
 import React from 'react';
+import './cv-form.css';
 
 function DesignerCV() {
   return (
-    <div>
+    <div className="cv-form">
       <h1>Designer CV</h1>
       <form>
         <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" />
+          Personal Introduction:
+          <textarea name="introduction" />
         </label>
         <label>
           Design Skills:
           <input type="text" name="skills" />
         </label>
         <label>
-          Projects:
-          <textarea name="projects"></textarea>
+          Works:
+          <textarea name="works" />
+        </label>
+        <label>
+          Education:
+          <textarea name="education" />
+        </label>
+        <label>
+          Contact:
+          <input type="text" name="contact" />
+        </label>
+        <label>
+          Design Platform Links:
+          <input type="text" name="platformLinks" />
         </label>
         <input type="submit" value="Submit" />
       </form>
