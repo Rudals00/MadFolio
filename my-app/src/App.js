@@ -6,6 +6,7 @@ import Main from './components/Main'
 import Signup from './components/signup';
 import CreateCV from './components/createCV';
 import Serach from './components/Search';
+import PortfolioDetail from "./components/PortfolioDetail";
 import { useState } from 'react';
 import { GlobalContext } from './global';
 function App() {
@@ -22,6 +23,7 @@ function App() {
     <Route path="/signup" exact={true} element={<Signup />}></Route>
     <Route path="/createCV" exact={true} element={<CreateCV />}></Route>
     <Route path="/Search" exact={true} element={<Serach />}></Route>
+    <Route path="/portfolio/:name" component={PortfolioDetail} />
     </Routes>
     </BrowserRouter>
     </div>

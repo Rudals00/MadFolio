@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';
 
 function Search() {
@@ -17,6 +17,10 @@ function Search() {
         },
         // 더 많은 포트폴리오 아이템들
       ]);
+      const navigate = useNavigate();
+      const handlePortfolioClick = (portfolio) => {
+        navigate(`/portfolio/${portfolio.name}`);
+    };
 
       const handleSearch = (event) => {
         setSearchTerm(event.target.value);
@@ -48,17 +52,20 @@ function Search() {
         />
         <button className="search-button">Go</button>
       </div>
-      <div className="portfolio-list">
+      
+        <div className="portfolio-list">
         {filteredPortfolios.map((portfolio, index) => (
-          <div key={index} className="portfolio-item">
+            <div key={index} className="portfolio-item" onClick={() => handlePortfolioClick(portfolio)}>
             <h2>{portfolio.name}</h2>
             <p>Role: {portfolio.role}</p>
             <p>Skills: {portfolio.skills}</p>
-          </div>
+            </div>
         ))}
-      </div>
-    </div>
-  );
-}
+        </div>
+
+    
+            </div>
+        );
+        }
 
 export default Search;
