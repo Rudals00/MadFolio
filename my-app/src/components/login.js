@@ -4,8 +4,10 @@ import '../App.css';
 import axios from 'axios';
 import CreateCV from './createCV';
 import { useNavigate } from 'react-router-dom/dist';
+import { useGlobal } from '../global';
 
 function LoginPage() {
+  const {setID}=useGlobal()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [Result,setResult] = useState('');
@@ -22,6 +24,7 @@ function LoginPage() {
     }).then(response=>{
       if(response.data.result=="SUCCESS")
       {
+        setID(username)
         navigate('/')
       }
       else{
