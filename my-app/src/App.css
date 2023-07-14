@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+  color: #333;
 }
 
 .App-logo {
@@ -14,18 +16,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #333;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #007bff;
 }
 
 @keyframes App-logo-spin {
@@ -37,26 +39,57 @@
   }
 }
 
+/* 위쪽 섹션 */
+.top-section {
+  background-color: #66b3ff; /* Light blue */
+  height: 30vh;
+}
+
+/* 메인 페이지 */
 .main-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #a4cdf2; /* Light blue background */
-  height: 100vh; /* Adjust the height as needed */
+  background-color: #a4cdf2; /* Different shade of light blue */
+  height: 40vh;
   padding: 20px;
 }
 
-
-.nav-links {
-  display: flex;
-  justify-content: flex-end;
+/* 아래쪽 섹션 */
+.bottom-section {
+  background-color: #0080ff; /* Darker blue */
+  height: 30vh;
 }
 
-.link {
+.nav-links {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.nav-button {
   margin-left: 10px;
   color: #0000ff; /* Blue link color */
   text-decoration: none;
+  padding: 10px;
+  border: 1px solid #0000ff;
+  border-radius: 5px;
+}
+
+.nav-links a {
+  margin: 0 10px;
+  background-color: #007bff; /* Blue button background */
+  color: #fff; /* White button text color */
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 .create-cv-button {
@@ -65,10 +98,15 @@
 
 .create-cv-link {
   display: inline-block;
-  padding: 12px 24px;
-  background-color: #008000; /* Green button background */
+  padding: 40px 79px;
+  background-color: #28a745; /* Green button background */
   color: #fff; /* White button text color */
   text-decoration: none;
-  font-size: 18px;
+  font-size: 3.0rem;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.create-cv-link:hover {
+  background-color: #1e7e34; /* Darker green on hover */
 }

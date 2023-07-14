@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import '../App.css';
+import DeveloperCV from './DeveloperCV';
+import DesignerCV from './DesignerCV';
+import ManagerCV from './ManagerCV';
 
 function CreateCV() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const user = { career: 'manager' }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // 여기서 username과 password를 사용하여 로그인 로직을 처리합니다.
-    // 예를 들어 API를 호출하여 로그인을 시도할 수 있습니다.
-    console.log(`Logging in with username: ${username} and password: ${password}`);
+  switch(user.career) {
+    case 'developer':
+      return <DeveloperCV />
+    case 'designer':
+      return <DesignerCV />
+    case 'manager':
+      return <ManagerCV />
+    default:
+      return <p>잘못된 접근입니다.</p>
   }
-
-  return (
-    <div>
-      <h1>Create your own CV!</h1>
-     
-    </div>
-  );
 }
 
 export default CreateCV;
