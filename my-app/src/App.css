@@ -41,7 +41,9 @@
 
 /* 위쪽 섹션 */
 .top-section {
-  background-color: #66b3ff; /* Light blue */
+  align-items: center;
+  justify-content: center;
+  display: flex;
   height: 30vh;
 }
 
@@ -51,16 +53,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #a4cdf2; /* Different shade of light blue */
   height: 40vh;
   padding: 20px;
 }
 
 /* 아래쪽 섹션 */
-.bottom-section {
-  background-color: #0080ff; /* Darker blue */
-  height: 30vh;
-}
 
 .nav-links {
   position: absolute;
@@ -82,8 +79,8 @@
   background-color: #007bff; /* Blue button background */
   color: #fff; /* White button text color */
   text-decoration: none;
-  padding: 12px 24px;
-  font-size: 1.2rem;
+  padding: 20px 30px;
+  font-size: 1.5rem;
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
@@ -93,20 +90,38 @@
 }
 
 .create-cv-button {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .create-cv-link {
   display: inline-block;
-  padding: 40px 79px;
+  padding: 30px 79px;
   background-color: #28a745; /* Green button background */
   color: #fff; /* White button text color */
   text-decoration: none;
-  font-size: 3.0rem;
-  border-radius: 4px;
+  font-size: 2.5rem;
+  border-radius: 8px;
   transition: background-color 0.3s ease;
 }
 
 .create-cv-link:hover {
-  background-color: #1e7e34; /* Darker green on hover */
+  background-color: #14722a; /* Darker green on hover */
+}
+
+h1 {
+  font-size: 4.0rem;
+  z-index: 1;
+  color:#375600;
+}
+
+.backimage{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  background-image: url("https://cdn.pixabay.com/photo/2016/07/31/16/24/banner-1559400_1280.jpg");
+  background-size:cover;
+  background-position: center;
+  opacity: 0.4;
 }
