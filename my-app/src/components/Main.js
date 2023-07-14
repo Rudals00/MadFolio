@@ -14,10 +14,11 @@ function Main() {
   return (
     <div>
       <div classsName='menu-item'>
-      <div className="button-container">
-    <Link to="/createCV" className="custom-button">Create</Link>
-    <Link to="/Search" className="custom-button">Search</Link>
-    <Link to="/Hire" className="custom-button">Hire</Link>
+        <div className="button-container">
+        <Link to="/" className="custom-button">Main</Link>
+        <Link to="/createCV" className="custom-button">Create</Link>
+        <Link to="/Search" className="custom-button">Search</Link>
+        <Link to="/Hire" className="custom-button">Hire</Link>
       </div>
       </div>
       <div className='top-section'>
