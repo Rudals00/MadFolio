@@ -13,9 +13,16 @@ function Main() {
 
   return (
     <div>
+      <div classsName='menu-item'>
+      <div className="button-container">
+    <Link to="/createCV" className="custom-button">Create</Link>
+    <Link to="/Search" className="custom-button">Search</Link>
+    <Link to="/Hire" className="custom-button">Hire</Link>
+      </div>
+      </div>
       <div className='top-section'>
         <div className="backimage"></div>
-      <h1 calassName='Title'>Write your own CV!</h1>
+      <h1 className='Title'>당신만의 완벽한 portfolio를<br></br>만들어 보세요</h1>
       </div>
       <div className='main-page'>
         <div className='nav-links'>
