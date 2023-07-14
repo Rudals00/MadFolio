@@ -8,9 +8,17 @@ function Signup() {
   const [duty, setDuty] = useState('');
   const [search, setSearch] = useState('');
   const [school, setSchool] = useState('');
+  const [career, setCareer] = useState('');
   const [schoolList, setSchoolList] = useState(['한양대학교','고려대학교','KAIST','숙명여자대학교','부산대학교','POSTEC','UNIST','성균관대학교'])
   const [filteredSchools, setFilteredSchools] = useState([]);
+  const [experienceDetail, setExperienceDetail] = useState('');
+  const [experienceDetails, setExperienceDetails] = useState([]);
 
+  // 경력사항을 추가하는 함수
+  const handleAddExperience = () => {
+    setExperienceDetails(prev => [...prev, experienceDetail]);
+    setExperienceDetail('');
+  }
 
   useEffect(() => {
     if (search.length === 0) {
@@ -116,11 +124,33 @@ function Signup() {
             ))}
           </div>
         </label>
-
+        <label>
+          경력:
+          <select value={career} onChange={(e) => setCareer(e.target.value)}>
+            <option value="">--선택하세요--</option>
+            <option value="신입">신입</option>
+            <option value="경력">경력</option>
+          </select>
+        </label>
+        {career === '경력' && (
+          <div>
+            <label>
+              경력사항:
+              <input type="text" value={experienceDetail} onChange={(e) => setExperienceDetail(e.target.value)} />
+            </label>
+            <button type="button" onClick={handleAddExperience}>추가</button> {/* "추가" 버튼 */}
+          </div>
+        )}
+        {/* 현재까지 추가된 경력사항들을 보여줍니다. */}
+      <ul>
+        {experienceDetails.map((experience, index) => (
+          <li key={index}>{experience}</li>
+        ))}
+      </ul>
         
         <input type="submit" value="Submit" />
       </form>
-     
+        
     </div>
   );
 }
