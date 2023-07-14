@@ -1,7 +1,7 @@
 import React from 'react';
 import './cv-form.css';
 
-function DesignerCV() {
+function DesignerCV({data}) {
   return (
     <div className="cv-form">
       <h1>Designer CV</h1>

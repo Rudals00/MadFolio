@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import { useGlobal } from '../global';
 
 function Main() {
-  const {ID}=useGlobal()
+  const {ID,setID}=useGlobal()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [TopRightView,setView]=useState(null)
@@ -16,7 +16,7 @@ function Main() {
   useEffect(()=>{
     if(ID!="")
    
-    setView(<div className=''>{ID}님 환영합니다 <Link to="/logout">로그아웃</Link></div>)
+    setView(<div className='topright'>{ID}님 환영합니다 <Link to="/" onClick={handlelogout}>로그아웃</Link></div>)
     else{
     setView(<div className='nav-links'>
     <Link to="/login" className='nav-button'>Login</Link>
@@ -25,7 +25,9 @@ function Main() {
     }
   },[TopRightView])
 
-
+const handlelogout=()=>{
+  setID("")
+}
   return (
     <div>
       <div classsName='menu-item'>
