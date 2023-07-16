@@ -60,9 +60,7 @@ app.post('/dologin',async (req,res)=>{
       const result=await userdata.find(req.body).toArray();
     if(result.length>0)
     {
-      console.log(result[0])
-      res.json(result[0]);
-      
+      res.json(result[0])
     }
     else
     {

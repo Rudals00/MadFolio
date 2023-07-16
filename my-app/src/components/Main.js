@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../App.css';
 import {Link} from 'react-router-dom';
 import { useGlobal } from '../global';
+import Menu from './menu'
 
 function Main() {
   const {ID,setID}=useGlobal()
@@ -14,8 +15,13 @@ function Main() {
   }
   
   useEffect(()=>{
+    if(ID=="")
+  {
+    const saved=localStorage.getItem("id")
+    if(saved!=null)
+    setID(saved)
+  }
     if(ID!="")
-   
     setView(<div className='topright'>{ID}님 환영합니다 <Link to="/" onClick={handlelogout}>로그아웃</Link></div>)
     else{
     setView(<div className='nav-links'>
@@ -27,17 +33,12 @@ function Main() {
 
 const handlelogout=()=>{
   setID("")
+  localStorage.removeItem("id")
 }
   return (
     <div>
-      <div classsName='menu-item'>
-        <div className="button-container">
-        <Link to="/" className="custom-button">Main</Link>
-        <Link to="/createCV" className="custom-button">Create</Link>
-        <Link to="/Search" className="custom-button">Search</Link>
-        <Link to="/Hire" className="custom-button">Hire</Link>
-      </div>
-      </div>
+      <div className='logo'/>
+          <Menu />
       <div className='top-section'>
         <div className="backimage"></div>
       <h1 className='Title'>당신만의 완벽한 portfolio를<br></br>만들어 보세요</h1>
@@ -45,10 +46,10 @@ const handlelogout=()=>{
       <div className='main-page'>
           {TopRightView}
         <div className='create-cv-button'>
-          <h2><Link to="/CreateCV" className='create-cv-link'>Create one!</Link></h2>
+          <h2><Link to="/createCV" className='create-cv-link'>Create one!</Link></h2>
         </div>
         <div className='create-cv-button'>
-          <h2><Link to="/CreateCV" className='create-cv-link'>Modify</Link></h2>
+          <h2><Link to="/createCV" className='create-cv-link'>Modify</Link></h2>
         </div>
       </div>
       <div className='bottom-section'></div>

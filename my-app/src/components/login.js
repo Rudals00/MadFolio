@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import {Routes,Route } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
-import CreateCV from './createCV';
 import { useNavigate } from 'react-router-dom/dist';
 import { useGlobal } from '../global';
+import Menu from './menu'
 
 function LoginPage() {
   const {setID}=useGlobal()
@@ -25,6 +24,7 @@ function LoginPage() {
       if(response.data.result=="SUCCESS")
       {
         setID(username)
+        localStorage.setItem("id",username)
         navigate('/')
       }
       else{
@@ -36,6 +36,10 @@ function LoginPage() {
 
   return (
     <div>
+      <div className='logo'/>
+      <Menu />
+      <br></br>
+      <br></br>
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -47,7 +51,7 @@ function LoginPage() {
           Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <input type="submit" value="Submit" />
+        <input className="custom-button"type="submit" value="Submit" />
       </form>
       <div>
         <h1>{Result}</h1>

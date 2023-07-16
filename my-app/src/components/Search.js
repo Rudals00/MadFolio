@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';
+import Menu from './menu'
 
 function Search() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -34,14 +35,8 @@ function Search() {
     );
   return (
     <div>
-      <div classsName='menu-item'>
-        <div className="button-container">
-    <Link to="/" className="custom-button">Main</Link>
-    <Link to="/createCV" className="custom-button">Create</Link>
-    <Link to="/Search" className="custom-button">Search</Link>
-    <Link to="/Hire" className="custom-button">Hire</Link>
-        </div>
-      </div>
+      <div className='logo'/>
+      <Menu />
       <div className="search-container">
         <input
           type="text"
