@@ -238,6 +238,14 @@ function DeveloperCV() {
               <label>설명:</label>
               <textarea className="form-control" name="description" value={projectEntry.description} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
             </div>
+            <div className="form-group">
+              <label>githublink:</label>
+              <input type="text" className="form-control" name="github" value={projectEntry.github} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+            </div>
+            <div className="form-group">
+              <label>프로젝트 이미지:</label>
+              <input type="file" className="form-control-file" name="image" value={projectEntry.image} onChange={(event) => handleInputChange(setProjectEntries, index, event)}/>
+            </div>
             <button type="button" className="btn btn-secondary" onClick={() => handleAddProject(index)}>추가</button>
           </div>
         ))}
@@ -245,7 +253,10 @@ function DeveloperCV() {
           {projectDetails.map((project, index) => (
             <li key={index}>
               프로젝트명: {project.project},
-              설명: {project.description}
+              설명: {project.description},
+              githublink: {project.github},
+              프로젝트이미지: {project.image}
+
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
             </li>
           ))}
