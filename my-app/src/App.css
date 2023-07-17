@@ -235,3 +235,12 @@
 .btn-custom:hover {
   background-color: #666666; /* 마우스를 올렸을 때 버튼의 색상 */
 }
+
+.btn-custom-CV {
+  background-color: #808080; /* 이 값은 회색을 나타내는 표준 RGB 값입니다 */
+  color: white; /* 텍스트 색상을 변경하려면 이 줄을 수정하세요 */
+  border: none; /* 테두리를 숨기려면 이 줄을 유지하세요 */
+  padding: 10px 20px;  /* 패딩 값. 위아래 패딩 10px, 좌우 패딩 20px */
+  font-size: 17px; /* 글자 크기 조절 */
+  border-radius: 20px;
+}
