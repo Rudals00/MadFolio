@@ -11,6 +11,7 @@ import './Portfolio/src/cv.css'
 import HomePage from './Portfolio/src/pages/homepage'
 import About from './Portfolio/src/pages/about'
 import Project from './Portfolio/src/pages/projects'
+import Mypage from './components/mypage'
 import { useState } from 'react';
 import { GlobalContext } from './global';
 function App() {
@@ -30,6 +31,7 @@ function App() {
     <Route path="/viewcv/:id" exact={true} element={<HomePage />}></Route>
     <Route path="/viewcv/:id/about" exact={true} element={<About />}></Route>
     <Route path="/viewcv/:id/projects" exact={true} element={<Project />}></Route>
+    <Route path="/mypage" exact={true} element={<Mypage />}></Route>
     </Routes>
     </BrowserRouter>
     </div>

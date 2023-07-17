@@ -319,7 +319,7 @@ function DeveloperCV(props) {
                   <label>기간:</label>
                   <input type="text" className="form-control" name="duration" value={educationEntry.duration} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
                 </div>
-                <button type="button" className=".btn-custom-CV" onClick={() => handleAddEducation(index)}>추가</button>
+                <button type="button" className="btn btn-secondary" onClick={() => handleAddEducation(index)}>추가</button>
               </div>
             ))}
           </div>
@@ -341,7 +341,7 @@ function DeveloperCV(props) {
         ))}
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-          <button type="button" className=".btn-custom-CV" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
+          <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
             학력 항목 추가
           </button>
         </div>
@@ -388,7 +388,7 @@ function DeveloperCV(props) {
         ))}
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-          <button type="button" className=".btn-custom-CV" onClick={() => handleAddFields(setWorkEntries, { name: '', description: '', duration: '' })}>
+          <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setWorkEntries, { name: '', description: '', duration: '' })}>
             경력 항목 추가
           </button>
         </div>
@@ -464,7 +464,7 @@ function DeveloperCV(props) {
             <div className="card-footer">
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 onClick={() => handleAddSkill(entryIndex)}
               >
                 기술추가
@@ -483,7 +483,7 @@ function DeveloperCV(props) {
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-secondary"
             onClick={() => handleAddCategory(setCategoryEntries, { title: '', substacks: [] })}
           >
             분류추가
@@ -554,7 +554,7 @@ function DeveloperCV(props) {
         ))}
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-          <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setProjectEntries, { title: '', description: '', link: '' })}>
+          <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setProjectEntries, { title: '', description: '', link: '' })}>
             프로젝트 항목 추가
           </button>
         </div>
@@ -624,7 +624,7 @@ function DeveloperCV(props) {
             <div className="card-footer">
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 onClick={() => handleAddSubheading(entryIndex)}
               >
                 소제목 추가
@@ -643,7 +643,7 @@ function DeveloperCV(props) {
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-secondary"
             onClick={() => handleAddFields(setAdditionalEntries, { title: '', content: [] })}
           >
             큰 제목 추가

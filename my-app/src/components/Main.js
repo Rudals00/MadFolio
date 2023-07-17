@@ -23,14 +23,15 @@ function Main() {
         setID(saved)
     }
     if (ID != "")
-      setView(<div className='topright'>{ID}님 환영합니다 <Link to="/" onClick={handlelogout}>로그아웃</Link></div>)
+      setView(<div className='nav-links'>{ID}님 환영합니다 <Link to="/" onClick={handlelogout}>로그아웃</Link>
+      <Link to="/mypage" className='nav-button'>MyPage</Link></div>)
     else {
       setView(<div className='nav-links'>
         <Link to="/login" className='nav-button'>Login</Link>
         <Link to="/signup" className='nav-button'>Sign up</Link>
       </div>)
     }
-  }, [TopRightView])
+  }, [ID])
 
   const handlelogout = () => {
     setID("")
