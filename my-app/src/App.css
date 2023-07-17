@@ -79,26 +79,28 @@
 
 .create-cv-link {
   display: inline-block;
-  padding: 30px 79px;
-  background-color: #28a745; /* Green button background */
+  padding: 20px 70px;
+  background-color: #808080; /* Green button background */
   user-select: none;
   color: #fff; /* White button text color */
   text-decoration: none;
-  font-size: 2.5rem;
+  font-size: 2.0rem;
   border-radius: 8px;
   transition: background-color 0.3s ease;
   z-index: 0;
+  font-family: 'Nanum Myeongjo', serif;
 }
 
 .create-cv-link:hover {
-  background-color: #14722a; /* Darker green on hover */
+  background-color: #000000; /* Darker green on hover */
 }
 
 .Title {
-  font-size: 3.5rem;
-  margin-top: 100px;
+  font-size: 4.0rem;
+  margin-top: 150px;
   text-align: center;
-  color:#b6eff5;
+  color:#000000;
+  font-family: 'Nanum Myeongjo', serif;
 }
 
 .backimage{
@@ -107,7 +109,7 @@
   left: 0;
   width: 100%;
   height: 90%;
-  background-image: url("https://cdn.pixabay.com/photo/2016/07/31/16/24/banner-1559400_1280.jpg");
+  background-image: url("https://cdn.pixabay.com/photo/2020/01/06/18/13/letter-4745930_1280.jpg");
   background-size:cover;
   background-position: center;
   opacity: 0.8;
@@ -140,6 +142,7 @@
   user-select: none;
   border-left: 2px solid black;
   border-right: 2px solid black; /* Add black border */
+  font-family: 'Nanum Myeongjo', serif;
 }
 
 .custom-button:hover {
@@ -218,4 +221,17 @@
   background-size:cover;
   background-position: center;
   cursor:pointer;
+}
+
+.btn-custom {
+  background-color: #808080; /* 이 값은 회색을 나타내는 표준 RGB 값입니다 */
+  color: white; /* 텍스트 색상을 변경하려면 이 줄을 수정하세요 */
+  border: none; /* 테두리를 숨기려면 이 줄을 유지하세요 */
+  width: 100px;  /* 버튼의 너비 설정 */
+  height: 40px;  /* 버튼의 높이 설정 */
+  font-size: 17px; /* 글자 크기 조절 */
+  border-radius: 20px;
+}
+.btn-custom:hover {
+  background-color: #666666; /* 마우스를 올렸을 때 버튼의 색상 */
 }
