@@ -1,16 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
+import axios from 'axios';
 import NavBar from "../components/common/navBar";
 import Footer from "../components/common/footer";
 import Stack from "../components/projects/stack";
 import "../components/projects/styles/allProjects.css";
-import INFO from "../data/user";
 import '../cv.css'
 import "./styles/about.css";
 
 const About = () => {
+	const [data,setdata]=useState({})
+	const {id}=useParams()
 	useEffect(() => {
+		async function getUserdata(){
+			axios({
+			  method:'post',
+			  url:'/getcvdata',
+			  data:{
+				'id':id
+			  }
+			}).then(response=>{
+			  if(response.data.result!="ERROR")
+			  {
+				setdata(response.data)
+			  }
+			  else{
+				console.log("Error occured!");
+			  }
+			}); 
+		  }
+		  getUserdata()
 		window.scrollTo(0, 0);
 	}, []);
 
@@ -18,11 +38,11 @@ const About = () => {
 	return (
 		<React.Fragment>
 			<Helmet>
-				<title>{`About | ${INFO.main.name}'s Portfolio`}</title>
+				<title>{`About | ${data.name}'s Portfolio`}</title>
 			</Helmet>
 
 			<div className="page-content">
-				<NavBar active="about" />
+				<NavBar active="about" id={data.id}/>
 				<div className="content-wrapper">
 
 					<div className="about-container">
@@ -31,7 +51,7 @@ const About = () => {
 								<div className="cv-title about-title">
 									Developmet stacks
 								</div>
-								{INFO.stacks.map(item=>(
+								{data.stacks&&data.stacks.map(item=>(
 									<>
 									<div className="cv-subtitle about-subtitle">
 									{item.subtitle}
@@ -49,7 +69,7 @@ const About = () => {
 									</div>
 									</>									
 								))}
-								{INFO.additionls.map(data=>(
+								{data.additionls&&data.additionls.map(data=>(
 								<>
 								<div className="cv-title about-title">
 								{data.title}
@@ -70,7 +90,7 @@ const About = () => {
 						</div>
 					</div>
 					<div className="page-footer">
-						<Footer />
+						<Footer id={data.id}/>
 					</div>
 				</div>
 			</div>

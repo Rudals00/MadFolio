@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 
 import "./styles/footer.css";
 
-const Footer = () => {
+const Footer = (props) => {
+	const { id} = props;
+
 	return (
+
 		<React.Fragment>
 			<div className="footer">
 				<div className="footer-links">
 					<ul className="footer-nav-link-list">
 						<li className="footer-nav-link-item">
-							<Link to="/">Home</Link>
+							<Link to={"/viewcv/"+id}>Home</Link>
 						</li>
 						<li className="footer-nav-link-item">
-							<Link to="/about">About</Link>
+							<Link to={"/viewcv/"+id+"/about"}>About</Link>
 						</li>
 						<li className="footer-nav-link-item">
-							<Link to="/projects">Projects</Link>
+							<Link to={"/viewcv/"+id+"/projects"}>Projects</Link>
 						</li>
 					</ul>
 				</div>

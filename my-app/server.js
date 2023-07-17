@@ -74,6 +74,27 @@ app.post('/dologin',async (req,res)=>{
   
   });
 
+  app.post('/getcvdata',async (req,res)=>{
+    try{
+      await client.connect();
+      userdata=client.db('Users').collection('portfolios');
+      const result=await userdata.find(req.body).toArray();
+    if(result.length>0)
+    {
+      res.json(result[0])
+    }
+    else
+    {
+      res.json("ERROR");
+    }
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
   app.post('/dosignup',async (req,res)=>{
     try{
       await client.connect();

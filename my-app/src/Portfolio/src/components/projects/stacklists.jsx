@@ -2,7 +2,6 @@ import React from "react";
 
 import Stack from "./stack";
 
-import INFO from "../../data/user";
 
 import "./styles/allProjects.css";
 

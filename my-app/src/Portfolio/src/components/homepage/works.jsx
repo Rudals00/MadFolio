@@ -3,9 +3,9 @@ import React from "react";
 import Card from "../common/card";
 import '@fortawesome/fontawesome-free/js/all.js'
 import "./styles/works.css";
-import INFO from "../../data/user";
 
-const Works = () => {
+const Works = (props) => {
+	const {list}=props
 	return (
 		<div className="works">
 			<Card
@@ -13,10 +13,10 @@ const Works = () => {
 				title="Work"
 				body={
 					<div className="works-body">
-						{INFO.works.map((work,index)=>(
+						{list&&list.map((work)=>(
 							<div className="work">
 							<img
-								src="./work.png"
+								src={process.env.PUBLIC_URL+"/work.png"}
 								alt="facebook"
 								className="work-image"
 							/>

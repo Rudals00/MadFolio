@@ -1,18 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-
 import Footer from "../components/common/footer";
 import NavBar from "../components/common/navBar";
 import Works from "../components/homepage/works";
 import Schools from "../components/homepage/schools";
 import '@fortawesome/fontawesome-free/js/all.js'
-import INFO from "../data/user";
+import axios from 'axios'
 import '../cv.css'
 import "./styles/homepage.css";
+import { useParams } from "react-router-dom";
 
 const Homepage = () => {
-
+	const [data,setdata]=useState({})
+	const {id}=useParams()
 	useEffect(() => {
+		async function getUserdata(){
+			axios({
+			  method:'post',
+			  url:'/getcvdata',
+			  data:{
+				'id':id
+			  }
+			}).then(response=>{
+			  if(response.data.result!="ERROR")
+			  {
+				setdata(response.data)
+			  }
+			  else{
+				console.log("Error occured!");
+			  }
+			}); 
+		  }
+		  getUserdata()
 		window.scrollTo(0, 0);
 	}, []);
 
@@ -20,11 +39,11 @@ const Homepage = () => {
 	return (
 		<React.Fragment>
 			<Helmet>
-				<title>{INFO.main.name}'s Portfolio</title>
+				<title>{data.name}'s Portfolio</title>
 			</Helmet>
 
 			<div className="page-content">
-				<NavBar active="home" />
+				<NavBar id={data.id} active="home" />
 				<br></br>
 				<br></br>
 				<div className="content-wrapper">
@@ -32,13 +51,13 @@ const Homepage = () => {
 						<div className="homepage-first-area">
 							<div className="homepage-first-area-left-side">
 								<div className="cv-title homepage-title">
-									{INFO.main.name}
+									{data.name}
 								</div>
 								<div className="cv-subtitle homepage-subtitle">
-									{INFO.main.job}
+									{data.job}
 								</div>
 								<div className="cv-home-content homepage-subtitle">
-									{INFO.main.description}
+									{data.description}
 								</div>
 								<div className="cv-subtitle homepage-subtitle">
 									Contact
@@ -47,21 +66,21 @@ const Homepage = () => {
 								<a
 								className="homepage-social-icon"
 								>
-								<i class="fa-solid fa-building"></i> &nbsp; {INFO.socials.office}
+								<i class="fa-solid fa-building"></i> &nbsp; {data.office}
 								</a>
 								</div>
 								<div className="homepage-socials">
 								<a
 								className="homepage-social-icon"
 								>
-								<i class="fa-solid fa-mobile"></i> &nbsp; {INFO.socials.phone}
+								<i class="fa-solid fa-mobile"></i> &nbsp; {data.phone}
 								</a>
 								</div>
 								<div className="homepage-socials">
 								<a
 								className="homepage-social-icon"
 								>
-								<i class="fa-solid fa-envelope"></i> &nbsp; {INFO.main.email}
+								<i class="fa-solid fa-envelope"></i> &nbsp; {data.email}
 								</a>
 								</div>
 							</div>
@@ -70,7 +89,7 @@ const Homepage = () => {
 								<div className="homepage-image-container">
 									<div className="homepage-image-wrapper">
 										<img //이미지 지정 가능하게
-											src="homepage.jpg"
+											src={process.env.PUBLIC_URL+"/homepage.jpg"}
 											alt="about"
 											className="homepage-image"
 										/>
@@ -85,25 +104,25 @@ const Homepage = () => {
 						<div className="homepage-social-icon">
 							<i class="fa-brands fa-github"></i></div>
 							<a
-								href={INFO.socials.github}
+								href={data.github}
 								target="_blank"
 								rel="noreferrer"
 								className="homepage-social-icon"
 							>
-							{INFO.socials.github}
+							{data.github}
 							</a>
 						</div>
 						<div className="homepage-after-title">
 							<div className="homepage-articles">
-							<Schools />
+							<Schools list={data.schools}/>
 							</div>
 							<div className="homepage-works">
-								<Works />
+								<Works list={data.works}/>
 							</div>
 						</div>
 
 						<div className="page-footer">
-							<Footer />
+							<Footer id={data.id}/>
 						</div>
 					</div>
 				</div>

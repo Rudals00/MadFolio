@@ -18,8 +18,8 @@ function Main() {
     if(ID=="")
   {
     const saved=localStorage.getItem("id")
-    if(saved!=null)
-    setID(saved)
+    if(saved)
+      setID(saved)
   }
     if(ID!="")
     setView(<div className='topright'>{ID}님 환영합니다 <Link to="/" onClick={handlelogout}>로그아웃</Link></div>)
@@ -49,7 +49,7 @@ const handlelogout=()=>{
           <h2><Link to="/createCV" className='create-cv-link'>Create one!</Link></h2>
         </div>
         <div className='create-cv-button'>
-          <h2><Link to="/createCV" className='create-cv-link'>Modify</Link></h2>
+          <h2><Link to={'viewcv/'+ID} className='create-cv-link'>Modify</Link></h2>
         </div>
       </div>
       <div className='bottom-section'></div>

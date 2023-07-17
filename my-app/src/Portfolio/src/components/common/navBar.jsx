@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./styles/navBar.css";
 
 const NavBar = (props) => {
-	const { active } = props;
+	const { id,active } = props;
 
 	return (
 		<React.Fragment>
@@ -19,7 +19,7 @@ const NavBar = (props) => {
 										: "nav-item"
 								}
 							>
-								<Link to="/viewcv">Home</Link>
+								<Link to={"/viewcv/"+id}>Home</Link>
 							</li>
 							<li
 								className={
@@ -28,7 +28,7 @@ const NavBar = (props) => {
 										: "nav-item"
 								}
 							>
-								<Link to="/viewcv/about">About</Link>
+								<Link to={"/viewcv/"+id+"/about"}>About</Link>
 							</li>
 							<li
 								className={
@@ -37,7 +37,7 @@ const NavBar = (props) => {
 										: "nav-item"
 								}
 							>
-								<Link to="/viewcv/projects">Projects</Link>
+								<Link to={"/viewcv/"+id+"/projects"}>Projects</Link>
 							</li>
 					
 						</ul>
