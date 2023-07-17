@@ -46,7 +46,7 @@ useEffect(()=>{
     }); 
   }
   else{
-    setView(<DeveloperCV Data={data}/>)
+    setView(<DeveloperCV/>)
   }
   }
   getUserdata();
