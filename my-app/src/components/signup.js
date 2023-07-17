@@ -1,7 +1,10 @@
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import './signup.css';
+import '../App.css'
+import Menu from './menu'
 import { useNavigate } from 'react-router-dom/dist';
+
 
 function Signup() {
   const navigate=useNavigate()
@@ -123,6 +126,8 @@ function Signup() {
   
   return (
     <div>
+      <div className='logo'onClick={()=>navigate("/")}/>
+      <Menu />
       <h1>Signup Page</h1>
       <form onSubmit={handleSubmit}>
         <label>

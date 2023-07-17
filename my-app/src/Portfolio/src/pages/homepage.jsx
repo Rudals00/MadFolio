@@ -8,11 +8,12 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import axios from 'axios'
 import '../cv.css'
 import "./styles/homepage.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Homepage = () => {
 	const [data,setdata]=useState({})
 	const {id}=useParams()
+	const navigate=useNavigate()
 	useEffect(() => {
 		async function getUserdata(){
 			axios({
@@ -22,16 +23,22 @@ const Homepage = () => {
 				'id':id
 			  }
 			}).then(response=>{
-			  if(response.data.result!="ERROR")
+			  if(response.data!="ERROR")
 			  {
 				setdata(response.data)
 			  }
 			  else{
-				console.log("Error occured!");
+				alert("You have to create one first!")
+				navigate("/")
 			  }
 			}); 
 		  }
-		  getUserdata()
+		  if(id)
+		  	getUserdata()
+		  else{
+			alert("Please Login first")
+		  	navigate("/login")
+		  }
 		window.scrollTo(0, 0);
 	}, []);
 
@@ -70,11 +77,11 @@ const Homepage = () => {
 								</a>
 								</div>
 								<div className="homepage-socials">
-								<a
+								<div
 								className="homepage-social-icon"
 								>
 								<i class="fa-solid fa-mobile"></i> &nbsp; {data.phone}
-								</a>
+								</div>
 								</div>
 								<div className="homepage-socials">
 								<a

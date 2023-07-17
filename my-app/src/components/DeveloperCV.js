@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
-function DeveloperCV() {
+function DeveloperCV(props) {
+  const navigate=useNavigate()
+  const {id}=props
   const [educationEntries, setEducationEntries] = useState([]);
   const [workEntries, setWorkEntries] = useState([]);
   const [categoryEntries, setCategoryEntries] = useState([]);
@@ -9,12 +13,12 @@ function DeveloperCV() {
   const [additionalEntries, setAdditionalEntries] = useState([]);
   const [userInfo, setUserInfo] = useState({
     name: '',
-    occupation: '',
+    job: '',
     email: '',
-    introduction: '',
-    contact: '',
-    address: '',
-    github: '',
+    description: '',
+    phone: '',
+    office: '',
+    github: ''
   });
   const [experienceDetails, setExperienceDetails] = useState([]);
   const [educationDetails, setEducationDetails] = useState([]);
@@ -76,7 +80,7 @@ function DeveloperCV() {
   //addtional things
   const handleAddAdditionalEntry = (index) => {
     const newEntry = additionalEntries[index];
-    newEntry.subheadings = [];
+    newEntry.content = [];
     setAdditionalDetails((prevDetails) => [...prevDetails, newEntry]);
 
     setAdditionalEntries((prevEntries) => {
@@ -88,7 +92,7 @@ function DeveloperCV() {
 
   const handleAddCategoryEntry = (index) => {
     const newEntry = categoryEntries[index];
-    newEntry.skills = [];
+    newEntry.substacks = [];
     setskillDetails((prevDetails)=> [...prevDetails,newEntry]);
 
     setCategoryEntries((prevEntries)=>{
@@ -101,7 +105,7 @@ function DeveloperCV() {
   const handleAddSubheading = (entryIndex, subheadingIndex) => {
     setAdditionalDetails((prevDetails) => {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].subheadings.push({ title: '', content: '' });
+      newDetails[entryIndex].content.push({ subtitle: '', content: '' });
       return newDetails;
     });
   };
@@ -109,7 +113,7 @@ function DeveloperCV() {
   const handleAddSkill = (entryIndex, skillIndex) => {
     setskillDetails((prevDetails) => {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].skills.push({skill: '', description: ''});
+      newDetails[entryIndex].substacks.push({title: '', description: ''});
       return newDetails;
     });
   }
@@ -117,7 +121,7 @@ function DeveloperCV() {
   const handleRemoveSubheading = (entryIndex, subheadingIndex) => {
     setAdditionalDetails((prevDetails) => {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].subheadings.splice(subheadingIndex, 1);
+      newDetails[entryIndex].content.splice(subheadingIndex, 1);
       return newDetails;
     });
   };
@@ -125,22 +129,22 @@ function DeveloperCV() {
   const handleRemoveSkillheading = (entryIndex, skillIndex) => {
     setskillDetails((prevDetails)=> {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].skills.splice(skillIndex, 1);
+      newDetails[entryIndex].substacks.splice(skillIndex, 1);
       return newDetails;
     });
   };
   const handleSubheadingChange = (entryIndex, subheadingIndex, event) => {
     setAdditionalDetails((prevDetails) => {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].subheadings[subheadingIndex][event.target.name] = event.target.value;
+      newDetails[entryIndex].content[subheadingIndex][event.target.name] = event.target.value;
       return newDetails;
     });
   };
 
-  const handleSkillsChange = (entryIndex, skillsIndex, event) =>{
+  const handlesubstacksChange = (entryIndex, substacksIndex, event) =>{
     setskillDetails((prevDetails) => {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].skills[skillsIndex][event.target.name] = event.target.value;
+      newDetails[entryIndex].substacks[substacksIndex][event.target.name] = event.target.value;
       return newDetails;
     });
   };
@@ -155,50 +159,39 @@ function DeveloperCV() {
     });
   };
 
-  //development stack
-  
-  
-  // function handleCategoryChange(index, event) {
-  //   const values = [...categoryEntries];
-  //   values[index].category = event.target.value;
-  //   setCategoryEntries(values);
-  // }
-  
-  // // 기술 스택 추가
-  // function handleAddSkill(categoryIndex) {
-  //   const values = [...categoryEntries];
-  //   values[categoryIndex].skills.push({ name: '', description: '' });
-  //   setCategoryEntries(values);
-  // }
-  
-  // // 기술 스택 제거
-  // const handleRemoveSkill = (categoryIndex, skillIndex) => {
-  //   const newCategoryEntries = [...categoryEntries];
-  //   newCategoryEntries[categoryIndex].skills.splice(skillIndex, 1);
-  //   setCategoryEntries(newCategoryEntries);
-  // };
-  
-  // // 기술명 또는 설명 변경
-  // const handleSkillChange = (categoryIndex, skillIndex, field, event) => {
-  //   const newCategoryEntries = [...categoryEntries];
-  //   newCategoryEntries[categoryIndex].skills[skillIndex][field] = event.target.value;
-  //   setCategoryEntries(newCategoryEntries);
-  // };
-  
-  // // 분류 추가
-  // function handleAddCategory() {
-  //   setCategoryEntries([...categoryEntries, { category: '', skills: [] }]);
-  // }
-  
-  // // 분류 제거
-  // const handleRemoveCategory = (index) => {
-  //   const newCategoryEntries = [...categoryEntries];
-  //   newCategoryEntries.splice(index, 1);
-  //   setCategoryEntries(newCategoryEntries);
-  // };
-  //submit
-  const handleSubmit = () => {
 
+  //submit
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("On submit")
+    axios({
+      method:'post',
+      url:'/addcv',
+      data:{
+        'id':id&&id,
+        'name':userInfo.name,
+        'email':userInfo.email,
+        'job':userInfo.job,
+        'description':userInfo.description,
+        'phone':userInfo.phone,
+        'office':userInfo.office,
+        'github':userInfo.github,
+        'schools': educationDetails,
+        'works': experienceDetails,
+        'stacks':skillDetails,
+        'additionls':additionalDetails,
+        'projects':projectDetails
+      }
+    }).then(response=>{
+      if(response.data.result=="SUCCESS")
+      {
+        alert("Item added!")
+        navigate('/')
+      }
+      else{
+        alert("Error!")
+      }
+    });
   }
 
   return (
@@ -212,7 +205,7 @@ function DeveloperCV() {
         </div>
         <div className="form-group">
           <label>현재 직군(or 학생):</label>
-          <input type="text" className="form-control" name="occupation" value={userInfo.occupation} onChange={handleUserInfoChange} />
+          <input type="text" className="form-control" name="job" value={userInfo.job} onChange={handleUserInfoChange} />
         </div>
         <div className="form-group">
           <label>이메일 주소:</label>
@@ -220,15 +213,15 @@ function DeveloperCV() {
         </div>
         <div className="form-group">
           <label>짧은 개인 소개:</label>
-          <textarea className="form-control" name="introduction" value={userInfo.institution} onChange={handleUserInfoChange}></textarea>
+          <textarea className="form-control" name="description" value={userInfo.institution} onChange={handleUserInfoChange}></textarea>
         </div>
         <div className="form-group">
           <label>연락처:</label>
-          <input type="text" className="form-control" name="contact" value={userInfo.contact} onChange={handleUserInfoChange} />
+          <input type="text" className="form-control" name="phone" value={userInfo.phone} onChange={handleUserInfoChange} />
         </div>
         <div className="form-group">
           <label>주소:</label>
-          <input type="text" className="form-control" name="address" value={userInfo.address} onChange={handleUserInfoChange} />
+          <input type="text" className="form-control" name="office" value={userInfo.office} onChange={handleUserInfoChange} />
         </div>
         <div className="form-group">
           <label>github link:</label>
@@ -244,7 +237,7 @@ function DeveloperCV() {
           <div key={index}>
             <div className="form-group">
               <label>학교 및 기관명:</label>
-              <input type="text" className="form-control" name="institution" value={educationEntry.institution} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
+              <input type="text" className="form-control" name="name" value={educationEntry.name} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
             </div>
             <div className="form-group">
               <label>간단 설명:</label>
@@ -252,7 +245,7 @@ function DeveloperCV() {
             </div>
             <div className="form-group">
               <label>기간:</label>
-              <input type="text" className="form-control" name="period" value={educationEntry.period} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
+              <input type="text" className="form-control" name="duration" value={educationEntry.duration} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
             </div>
             <button type="button" className="btn btn-secondary" onClick={() => handleAddEducation(index)}>추가</button>
           </div>
@@ -260,14 +253,14 @@ function DeveloperCV() {
         <ul>
           {educationDetails.map((education, index) => (
             <li key={index}>
-              기관명: {education.institution},
+              기관명: {education.name},
               설명: {education.description},
-              기간: {education.period}
+              기간: {education.duration}
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
             </li>
           ))}
         </ul>
-        <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setEducationEntries, { institution: '', description: '', period: '' })}>
+        <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
           학력 항목 추가
         </button>
 
@@ -276,7 +269,7 @@ function DeveloperCV() {
           <div key={index}>
             <div className="form-group">
               <label>회사 및 기관명:</label>
-              <input type="text" className="form-control" name="institution" value={workEntry.institution} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
+              <input type="text" className="form-control" name="name" value={workEntry.name} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
             </div>
             <div className="form-group">
               <label>간단 설명:</label>
@@ -284,7 +277,7 @@ function DeveloperCV() {
             </div>
             <div className="form-group">
               <label>기간:</label>
-              <input type="text" className="form-control" name="period" value={workEntry.period} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
+              <input type="text" className="form-control" name="duration" value={workEntry.duration} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
             </div>
             <button type="button" className="btn btn-secondary" onClick={() => handleAddExperience(index)}>추가</button>
           </div>
@@ -292,14 +285,14 @@ function DeveloperCV() {
         <ul>
           {experienceDetails.map((experience, index) => (
             <li key={index}>
-              기관명: {experience.institution},
+              기관명: {experience.name},
               설명: {experience.description},
-              기간: {experience.period}
+              기간: {experience.duration}
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
             </li>
           ))}
         </ul>
-        <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setWorkEntries, { institution: '', description: '', period: '' })}>
+        <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setWorkEntries, { name: '', description: '', duration: '' })}>
           경력 항목 추가
         </button>
 
@@ -311,8 +304,8 @@ function DeveloperCV() {
                 <input
                   type="text"
                   className="form-control"
-                  name="category"
-                  value={categoryEntry.category}
+                  name="title"
+                  value={categoryEntry.title}
                   onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
                 />
               </div>
@@ -324,13 +317,13 @@ function DeveloperCV() {
               </div>
 ))}
 
-              {/* Rendering skills */}
+              {/* Rendering substacks */}
               <ul>
                 {skillDetails.map((skill, entryIndex) => (
                   <li key={entryIndex}>
-                    <h3>{skill.category}</h3>
+                    <h3>{skill.title}</h3>
                     <ul>
-                      {skill.skills.map((skill,skillIndex)=>(
+                      {skill.substacks.map((skill,skillIndex)=>(
                         <li key={skillIndex}>
                           <div className="form-group">
                           <label>기술명:</label>
@@ -339,7 +332,7 @@ function DeveloperCV() {
                             className="form-control"
                             name="title"
                             value={skill.title}
-                            onChange={(event) => handleSkillsChange(entryIndex, skillIndex, event)}
+                            onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
                           />
                         </div>
                         <div className="form-group">
@@ -349,7 +342,7 @@ function DeveloperCV() {
                             className="form-control"
                             name="description"
                             value={skill.description}
-                            onChange={(event) => handleSkillsChange(entryIndex, skillIndex, event)}
+                            onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
                           />
                         </div>
                         <button
@@ -389,7 +382,7 @@ function DeveloperCV() {
           <button
         type="button"
         className="btn btn-primary"
-        onClick={() => handleAddCategory(setCategoryEntries, { title: '', skills: [] })}
+        onClick={() => handleAddCategory(setCategoryEntries, { title: '', substacks: [] })}
       >
         분류추가
       </button>
@@ -399,7 +392,7 @@ function DeveloperCV() {
           <div key={index}>
             <div className="form-group">
               <label>프로젝트명:</label>
-              <input type="text" className="form-control" name="project" value={projectEntry.project} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+              <input type="text" className="form-control" name="title" value={projectEntry.title} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
             </div>
             <div className="form-group">
               <label>설명:</label>
@@ -407,7 +400,7 @@ function DeveloperCV() {
             </div>
             <div className="form-group">
               <label>githublink:</label>
-              <input type="text" className="form-control" name="github" value={projectEntry.github} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+              <input type="text" className="form-control" name="link" value={projectEntry.link} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
             </div>
             <div className="form-group">
               <label>프로젝트 이미지:</label>
@@ -419,16 +412,16 @@ function DeveloperCV() {
         <ul>
           {projectDetails.map((project, index) => (
             <li key={index}>
-              프로젝트명: {project.project},
+              프로젝트명: {project.title},
               설명: {project.description},
-              githublink: {project.github},
+              githublink: {project.link},
               프로젝트이미지: {project.image}
 
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
             </li>
           ))}
         </ul>
-        <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setProjectEntries, { project: '', description: '' })}>
+        <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setProjectEntries, { title: '', description: '',link:''})}>
           프로젝트 항목 추가
         </button>
 
@@ -455,15 +448,15 @@ function DeveloperCV() {
           <li key={entryIndex}>
             <h3>{additional.title}</h3>
             <ul>
-              {additional.subheadings.map((subheading, subheadingIndex) => (
+              {additional.content.map((subheading, subheadingIndex) => (
                 <li key={subheadingIndex}>
                   <div className="form-group">
                     <label>소제목:</label>
                     <input
                       type="text"
                       className="form-control"
-                      name="title"
-                      value={subheading.title}
+                      name="subtitle"
+                      value={subheading.subtitle}
                       onChange={(event) => handleSubheadingChange(entryIndex, subheadingIndex, event)}
                     />
                   </div>
@@ -507,7 +500,7 @@ function DeveloperCV() {
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() => handleAddFields(setAdditionalEntries, { title: '', subheadings: [] })}
+        onClick={() => handleAddFields(setAdditionalEntries, { title: '', content: [] })}
       >
         큰 제목 추가
       </button>

@@ -36,7 +36,7 @@ function LoginPage() {
 
   return (
     <div>
-      <div className='logo'/>
+      <div className='logo'onClick={()=>navigate("/")}/>
       <Menu />
       <br></br>
       <br></br>

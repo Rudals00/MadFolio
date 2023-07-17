@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import { useGlobal } from '../global';
 import Menu from './menu'
 
@@ -9,6 +10,7 @@ function Main() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [TopRightView,setView]=useState(null)
+  const navigate=useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(`Logging in with username: ${username} and password: ${password}`);
@@ -37,7 +39,10 @@ const handlelogout=()=>{
 }
   return (
     <div>
-      <div className='logo'/>
+      	<Helmet>
+				<title>Make your Portfolio</title>
+			</Helmet>
+      <div className='logo' onClick={()=>navigate("/")}/>
           <Menu />
       <div className='top-section'>
         <div className="backimage"></div>

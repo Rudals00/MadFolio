@@ -5,7 +5,6 @@ import axios from 'axios';
 import NavBar from "../components/common/navBar";
 import Footer from "../components/common/footer";
 import Stack from "../components/projects/stack";
-import "../components/projects/styles/allProjects.css";
 import '../cv.css'
 import "./styles/about.css";
 
@@ -56,9 +55,9 @@ const About = () => {
 									<div className="cv-subtitle about-subtitle">
 									{item.subtitle}
 									</div>
-									<div className="all-projects-container">
+									<div className="all-stacks-container">
 									{item.substacks.map((stack, index) => (
-										<div className="all-projects-project" key={index}>
+										<div className="all-stacks-project" key={index}>
 										<Stack
 										logo={stack.logo}
 										title={stack.title}

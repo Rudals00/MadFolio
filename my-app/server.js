@@ -74,6 +74,36 @@ app.post('/dologin',async (req,res)=>{
   
   });
 
+  app.post('/getallusers',async (req,res)=>{
+    try{
+      await client.connect();
+      userdata=client.db('Users').collection('portfolios');
+      const result=await userdata.find().toArray();
+    if(result.length>0)
+    {
+      let reslist=[]
+      for (const user of result)
+      {
+        temp={}
+        temp.id=user.id
+        temp.name=user.name
+        temp.job=user.job
+        reslist.push(temp)
+      }
+      res.json(reslist)
+    }
+    else
+    {
+      res.json("ERROR");
+    }
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
   app.post('/getcvdata',async (req,res)=>{
     try{
       await client.connect();
@@ -87,6 +117,20 @@ app.post('/dologin',async (req,res)=>{
     {
       res.json("ERROR");
     }
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
+  app.post('/addcv',async (req,res)=>{
+    try{
+      await client.connect();
+      userdata=client.db('Users').collection('portfolios');
+      await userdata.insertOne(req.body)
+      res.json({result:"SUCCESS"})
     }
     finally
     {

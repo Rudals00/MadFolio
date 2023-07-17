@@ -6,11 +6,13 @@ import ManagerCV from './ManagerCV';
 import Menu from './menu'
 import { useGlobal } from '../global';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateCV() {
   const [CVview,setView]=useState(null)
   const [data,setdata]=useState({})
   const {ID}=useGlobal()
+  const navigate=useNavigate()
 useEffect(()=>{
   async function getUserdata(){
     if(ID!="")
@@ -28,13 +30,13 @@ useEffect(()=>{
         
         switch(data.job){
           case 'developer':
-            setView(<DeveloperCV Data={data}/>)
+            setView(<DeveloperCV id={ID}/>)
             break;
           case 'manager':
-              setView(<ManagerCV Data={data}/>)
+              setView(<ManagerCV id={ID}/>)
               break;
           case 'designer':
-            setView(<DesignerCV Data={data}/>)
+            setView(<DesignerCV id={ID}/>)
               break;
           default:
             setView(<p>잘못된 접근입니다.</p>)
@@ -54,7 +56,7 @@ useEffect(()=>{
 
   return (<div>
     <div>
-      <div className='logo'/>
+      <div className='logo'onClick={()=>navigate("/")}/>
       <Menu/>
     </div>
     <br></br>

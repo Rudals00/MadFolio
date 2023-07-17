@@ -1,33 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';
+import axios from 'axios'
 import Menu from './menu'
 
 function Search() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [portfolios, setPortfolios] = useState([
-        {
-          name: "User1",
-          role: "Developer",
-          skills: "React, Node.js",
-        },
-        {
-          name: "User2",
-          role: "Designer",
-          skills: "Photoshop, Illustrator",
-        },
-        // 더 많은 포트폴리오 아이템들
-      ]);
+    const [portfolios, setPortfolios] = useState([]);
+    useEffect(()=>{
+      async function getUserdata(){
+        axios({
+          method:'post',
+          url:'/getallusers'
+        }).then(response=>{
+          if(response.data.result!="ERROR")
+          {
+            setPortfolios(response.data);
+            console.log("Get data");
+          }
+          else{
+            console.log("Error occured!");
+          }
+        }); 
+      }
+      getUserdata();
+    },[portfolios])
       const navigate = useNavigate();
       const handlePortfolioClick = (portfolio) => {
-        navigate(`/portfolio/${portfolio.name}`);
+        navigate(`/viewcv/${portfolio.id}`);
     };
 
       const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     }
 
-    const filteredPortfolios = portfolios.filter(
+    const filteredPortfolios = portfolios&&portfolios.filter(
         (portfolio) =>
           portfolio.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           portfolio.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -35,7 +42,7 @@ function Search() {
     );
   return (
     <div>
-      <div className='logo'/>
+      <div className='logo'onClick={()=>navigate("/")}/>
       <Menu />
       <div className="search-container">
         <input
@@ -49,11 +56,10 @@ function Search() {
       </div>
       
         <div className="portfolio-list">
-        {filteredPortfolios.map((portfolio, index) => (
+        {filteredPortfolios&&filteredPortfolios.map((portfolio, index) => (
             <div key={index} className="portfolio-item" onClick={() => handlePortfolioClick(portfolio)}>
             <h2>{portfolio.name}</h2>
-            <p>Role: {portfolio.role}</p>
-            <p>Skills: {portfolio.skills}</p>
+            <p>{portfolio.job}</p>
             </div>
         ))}
         </div>
