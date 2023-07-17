@@ -129,8 +129,10 @@ app.post('/dologin',async (req,res)=>{
     try{
       await client.connect();
       userdata=client.db('Users').collection('portfolios');
-      await userdata.insertOne(req.body)
+      await userdata.replaceOne({id:req.body.id},req.body,{upsert:true})
       res.json({result:"SUCCESS"})
+      
+      
     }
     finally
     {

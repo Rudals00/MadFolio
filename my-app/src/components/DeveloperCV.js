@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
 function DeveloperCV(props) {
-  const navigate=useNavigate()
-  const {id}=props
+  const navigate = useNavigate()
+  const { id } = props
   const [educationEntries, setEducationEntries] = useState([]);
   const [workEntries, setWorkEntries] = useState([]);
   const [categoryEntries, setCategoryEntries] = useState([]);
@@ -43,7 +43,7 @@ function DeveloperCV(props) {
   };
 
   const handleAddCategory = (entriesSetter, entry) => {
-    entriesSetter((prev) => [...prev,entry]);
+    entriesSetter((prev) => [...prev, entry]);
   };
   const handleAddExperience = (index) => {
     const newExperience = workEntries[index];
@@ -65,7 +65,7 @@ function DeveloperCV(props) {
       return newEntries;
     });
   };
-  
+
 
   const handleAddProject = (index) => {
     const newProject = projectEntries[index];
@@ -93,11 +93,11 @@ function DeveloperCV(props) {
   const handleAddCategoryEntry = (index) => {
     const newEntry = categoryEntries[index];
     newEntry.substacks = [];
-    setskillDetails((prevDetails)=> [...prevDetails,newEntry]);
+    setskillDetails((prevDetails) => [...prevDetails, newEntry]);
 
-    setCategoryEntries((prevEntries)=>{
+    setCategoryEntries((prevEntries) => {
       const newEntries = [...prevEntries];
-      newEntries.splice(index,1);
+      newEntries.splice(index, 1);
       return newEntries;
 
     })
@@ -113,7 +113,7 @@ function DeveloperCV(props) {
   const handleAddSkill = (entryIndex, skillIndex) => {
     setskillDetails((prevDetails) => {
       const newDetails = [...prevDetails];
-      newDetails[entryIndex].substacks.push({title: '', description: ''});
+      newDetails[entryIndex].substacks.push({ title: '', description: '' });
       return newDetails;
     });
   }
@@ -127,7 +127,7 @@ function DeveloperCV(props) {
   };
 
   const handleRemoveSkillheading = (entryIndex, skillIndex) => {
-    setskillDetails((prevDetails)=> {
+    setskillDetails((prevDetails) => {
       const newDetails = [...prevDetails];
       newDetails[entryIndex].substacks.splice(skillIndex, 1);
       return newDetails;
@@ -141,7 +141,7 @@ function DeveloperCV(props) {
     });
   };
 
-  const handlesubstacksChange = (entryIndex, substacksIndex, event) =>{
+  const handlesubstacksChange = (entryIndex, substacksIndex, event) => {
     setskillDetails((prevDetails) => {
       const newDetails = [...prevDetails];
       newDetails[entryIndex].substacks[substacksIndex][event.target.name] = event.target.value;
@@ -151,7 +151,7 @@ function DeveloperCV(props) {
 
 
 
-  
+
 
   const handleRemove = (detailsSetter, index) => {
     detailsSetter((prevDetails) => {
@@ -160,39 +160,53 @@ function DeveloperCV(props) {
       return newDetails;
     });
   };
- 
 
 
+
+  const handleProfileImage = useCallback(e => {
+    if (!e.target.files)
+      return
+    const formData = new FormData();
+    formData.append({ id }, e.target.files[0]);
+
+    axios({
+      url: '/uploadimage/' + id,
+      method: 'post',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(_ => { });
+  }, []);
 
   //submit
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("On submit")
     axios({
-      method:'post',
-      url:'/addcv',
-      data:{
-        'id':id&&id,
-        'name':userInfo.name,
-        'email':userInfo.email,
-        'job':userInfo.job,
-        'description':userInfo.description,
-        'phone':userInfo.phone,
-        'office':userInfo.office,
-        'github':userInfo.github,
+      method: 'post',
+      url: '/addcv',
+      data: {
+        'id': id && id,
+        'name': userInfo.name,
+        'email': userInfo.email,
+        'job': userInfo.job,
+        'description': userInfo.description,
+        'phone': userInfo.phone,
+        'office': userInfo.office,
+        'github': userInfo.github,
         'schools': educationDetails,
         'works': experienceDetails,
-        'stacks':skillDetails,
-        'additionls':additionalDetails,
-        'projects':projectDetails
+        'stacks': skillDetails,
+        'additionls': additionalDetails,
+        'projects': projectDetails
       }
-    }).then(response=>{
-      if(response.data.result=="SUCCESS")
-      {
+    }).then(response => {
+      if (response.data.result == "SUCCESS") {
         alert("Item added!")
         navigate('/')
       }
-      else{
+      else {
         alert("Error!")
       }
     });
@@ -243,339 +257,339 @@ function DeveloperCV(props) {
         </div>
 
         <div className="card mb-3">
-  <div className="card-header">
-    <h2>학력 등 교육 관련</h2>
-  </div>
-  <div className="card-body">
-    {educationEntries.map((educationEntry, index) => (
-      <div key={index}>
-        <div className="form-group">
-          <label>학교 및 기관명:</label>
-          <input type="text" className="form-control" name="name" value={educationEntry.name} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
+          <div className="card-header">
+            <h2>학력 등 교육 관련</h2>
+          </div>
+          <div className="card-body">
+            {educationEntries.map((educationEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>학교 및 기관명:</label>
+                  <input type="text" className="form-control" name="name" value={educationEntry.name} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>간단 설명:</label>
+                  <textarea className="form-control" name="description" value={educationEntry.description} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>기간:</label>
+                  <input type="text" className="form-control" name="duration" value={educationEntry.duration} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
+                </div>
+                <button type="button" className="btn btn-secondary" onClick={() => handleAddEducation(index)}>추가</button>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="form-group">
-          <label>간단 설명:</label>
-          <textarea className="form-control" name="description" value={educationEntry.description} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <label>기간:</label>
-          <input type="text" className="form-control" name="duration" value={educationEntry.duration} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
-        </div>
-        <button type="button" className="btn btn-secondary" onClick={() => handleAddEducation(index)}>추가</button>
-      </div>
-    ))}
-  </div>
-</div>
 
-{educationDetails.map((education, index) => (
-  <div className="card mb-3" key={index}>
-    <div className="card-header">
-      <h3>{education.name}</h3>
-    </div>
-    <div className="card-body">
-      <p>설명: {education.description}</p>
-      <p>기간: {education.duration}</p>
-    </div>
-    <div className="card-footer">
-      <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
-    </div>
-  </div>
-))}
-
-<div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-  <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
-    학력 항목 추가
-  </button>
-</div>
-
-
-<div className="card mb-3">
-  <div className="card-header">
-    <h2>경력 추가</h2>
-  </div>
-  <div className="card-body">
-    {workEntries.length > 0 && workEntries.map((workEntry, index) => (
-      <div key={index}>
-        <div className="form-group">
-          <label>회사 및 기관명:</label>
-          <input type="text" className="form-control" name="name" value={workEntry.name} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <label>간단 설명:</label>
-          <textarea className="form-control" name="description" value={workEntry.description} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <label>기간:</label>
-          <input type="text" className="form-control" name="duration" value={workEntry.duration} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
-        </div>
-        <button type="button" className="btn btn-secondary" onClick={() => handleAddExperience(index)}>추가</button>
-      </div>
-    ))}
-  </div>
-</div>
-
-{experienceDetails.map((experience, index) => (
-  <div className="card mb-3" key={index}>
-    <div className="card-header">
-      <h3>{experience.name}</h3>
-    </div>
-    <div className="card-body">
-      <p>설명: {experience.description}</p>
-      <p>기간: {experience.duration}</p>
-    </div>
-    <div className="card-footer">
-      <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
-    </div>
-  </div>
-))}
-
-<div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-  <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setWorkEntries, { name: '', description: '', duration: '' })}>
-    경력 항목 추가
-  </button>
-</div>
-
-
-<div className="card mb-3">
-  <div className="card-header">
-    <h2>Development Stacks</h2>
-  </div>
-  <div className="card-body">
-    {categoryEntries.map((categoryEntry, index) => (
-      <div key={index}>
-        <div className="form-group">
-          <label>분류:</label>
-          <input
-            type="text"
-            className="form-control"
-            name="title"
-            value={categoryEntry.title}
-            onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
-          />
-        </div>
-        <div className="form-group">
-          <button type="button" className="btn btn-secondary" onClick={() => handleAddCategoryEntry(index)}>
-            추가
-          </button>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
-
-{skillDetails.map((skill, entryIndex) => (
-  <div className="card mb-3" key={entryIndex}>
-    <div className="card-header">
-      <h3>{skill.title}</h3>
-    </div>
-    <div className="card-body">
-      <ul>
-        {skill.substacks.map((skill, skillIndex) => (
-          <li key={skillIndex}>
-            <div className="form-group">
-              <label>기술명:</label>
-              <input
-                type="text"
-                className="form-control"
-                name="title"
-                value={skill.title}
-                onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
-              />
+        {educationDetails.map((education, index) => (
+          <div className="card mb-3" key={index}>
+            <div className="card-header">
+              <h3>{education.name}</h3>
             </div>
-            <div className="form-group">
-              <label>설명:</label>
-              <input
-                type="text"
-                className="form-control"
-                name="description"
-                value={skill.description}
-                onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
-              />
+            <div className="card-body">
+              <p>설명: {education.description}</p>
+              <p>기간: {education.duration}</p>
             </div>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={() => handleRemoveSkillheading(entryIndex, skillIndex)}
-            >
-              X
-            </button>
-          </li>
+            <div className="card-footer">
+              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
+            </div>
+          </div>
         ))}
-      </ul>
-    </div>
-    <div className="card-footer">
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => handleAddSkill(entryIndex)}
-      >
-        기술추가
-      </button>
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => handleRemove(setskillDetails, entryIndex)}
-      >
-        X
-      </button>
-    </div>
-  </div>
-))}
 
-<div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-  <button
-    type="button"
-    className="btn btn-primary"
-    onClick={() => handleAddCategory(setCategoryEntries, { title: '', substacks: [] })}
-  >
-    분류추가
-  </button>
-</div>
-
-
-      <div className="card mb-3">
-  <div className="card-header">
-    <h2>프로젝트</h2>
-  </div>
-  <div className="card-body">
-    {projectEntries.map((projectEntry, index) => (
-      <div key={index}>
-        <div className="form-group">
-          <label>프로젝트명:</label>
-          <input type="text" className="form-control" name="title" value={projectEntry.title} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <label>설명:</label>
-          <textarea className="form-control" name="description" value={projectEntry.description} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <label>githublink:</label>
-          <input type="text" className="form-control" name="link" value={projectEntry.link} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <label>프로젝트 이미지:</label>
-          <input type="file" className="form-control-file" name="image" value={projectEntry.image} onChange={(event) => handleInputChange(setProjectEntries, index, event)}/>
-        </div>
-        <button type="button" className="btn btn-secondary" onClick={() => handleAddProject(index)}>추가</button>
-      </div>
-    ))}
-  </div>
-</div>
-
-{projectDetails.map((project, index) => (
-  <div className="card mb-3" key={index}>
-    <div className="card-header">
-      <h3>{project.title}</h3>
-    </div>
-    <div className="card-body">
-      <p>설명: {project.description}</p>
-      <p>githublink: {project.link}</p>
-      <p>프로젝트 이미지: {project.image}</p>
-    </div>
-    <div className="card-footer">
-      <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
-    </div>
-  </div>
-))}
-
-<div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-  <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setProjectEntries, { title: '', description: '',link:''})}>
-    프로젝트 항목 추가
-  </button>
-</div>
-
-
-
-
-        
-        <div className="card mb-3">
-  <div className="card-header">
-    <h2>Additional things</h2>
-  </div>
-  <div className="card-body">
-    {additionalEntries.map((additionalEntry, index) => (
-      <div key={index}>
-        <div className="form-group">
-          <label>제목:</label>
-          <input type="text" className="form-control" name="title" value={additionalEntry.title} onChange={(event) => handleInputChange(setAdditionalEntries, index, event)} />
-        </div>
-        <div className="form-group">
-          <button type="button" className="btn btn-secondary" onClick={() => handleAddAdditionalEntry(index)}>
-            추가
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+          <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
+            학력 항목 추가
           </button>
         </div>
-      </div>
-    ))}
-  </div>
-</div>
 
-{additionalDetails.map((additional, entryIndex) => (
-  <div className="card mb-3" key={entryIndex}>
-    <div className="card-header">
-      <h3>{additional.title}</h3>
-    </div>
-    <div className="card-body">
-      {additional.content.map((subheading, subheadingIndex) => (
-        <div key={subheadingIndex}>
-          <div className="form-group">
-            <label>소제목:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="subtitle"
-              value={subheading.subtitle}
-              onChange={(event) => handleSubheadingChange(entryIndex, subheadingIndex, event)}
-            />
+
+        <div className="card mb-3">
+          <div className="card-header">
+            <h2>경력 추가</h2>
           </div>
-          <div className="form-group">
-            <label>내용:</label>
-            <textarea
-              className="form-control"
-              name="content"
-              value={subheading.content}
-              onChange={(event) => handleSubheadingChange(entryIndex, subheadingIndex, event)}
-            ></textarea>
+          <div className="card-body">
+            {workEntries.length > 0 && workEntries.map((workEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>회사 및 기관명:</label>
+                  <input type="text" className="form-control" name="name" value={workEntry.name} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>간단 설명:</label>
+                  <textarea className="form-control" name="description" value={workEntry.description} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>기간:</label>
+                  <input type="text" className="form-control" name="duration" value={workEntry.duration} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
+                </div>
+                <button type="button" className="btn btn-secondary" onClick={() => handleAddExperience(index)}>추가</button>
+              </div>
+            ))}
           </div>
+        </div>
+
+        {experienceDetails.map((experience, index) => (
+          <div className="card mb-3" key={index}>
+            <div className="card-header">
+              <h3>{experience.name}</h3>
+            </div>
+            <div className="card-body">
+              <p>설명: {experience.description}</p>
+              <p>기간: {experience.duration}</p>
+            </div>
+            <div className="card-footer">
+              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
+            </div>
+          </div>
+        ))}
+
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+          <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setWorkEntries, { name: '', description: '', duration: '' })}>
+            경력 항목 추가
+          </button>
+        </div>
+
+
+        <div className="card mb-3">
+          <div className="card-header">
+            <h2>Development Stacks</h2>
+          </div>
+          <div className="card-body">
+            {categoryEntries.map((categoryEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>분류:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="title"
+                    value={categoryEntry.title}
+                    onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
+                  />
+                </div>
+                <div className="form-group">
+                  <button type="button" className="btn btn-secondary" onClick={() => handleAddCategoryEntry(index)}>
+                    추가
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {skillDetails.map((skill, entryIndex) => (
+          <div className="card mb-3" key={entryIndex}>
+            <div className="card-header">
+              <h3>{skill.title}</h3>
+            </div>
+            <div className="card-body">
+              <ul>
+                {skill.substacks.map((skill, skillIndex) => (
+                  <li key={skillIndex}>
+                    <div className="form-group">
+                      <label>기술명:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="title"
+                        value={skill.title}
+                        onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>설명:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="description"
+                        value={skill.description}
+                        onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => handleRemoveSkillheading(entryIndex, skillIndex)}
+                    >
+                      X
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="card-footer">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleAddSkill(entryIndex)}
+              >
+                기술추가
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleRemove(setskillDetails, entryIndex)}
+              >
+                X
+              </button>
+            </div>
+          </div>
+        ))}
+
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button
             type="button"
-            className="btn btn-danger"
-            onClick={() => handleRemoveSubheading(entryIndex, subheadingIndex)}
+            className="btn btn-primary"
+            onClick={() => handleAddCategory(setCategoryEntries, { title: '', substacks: [] })}
           >
-            X
+            분류추가
           </button>
         </div>
-      ))}
-    </div>
-    <div className="card-footer">
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => handleAddSubheading(entryIndex)}
-      >
-        소제목 추가
-      </button>
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => handleRemove(setAdditionalDetails, entryIndex)}
-      >
-        X
-      </button>
-    </div>
-  </div>
-))}
 
-<div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-  <button
-    type="button"
-    className="btn btn-primary"
-    onClick={() => handleAddFields(setAdditionalEntries, { title: '', content: [] })}
-  >
-    큰 제목 추가
-  </button>
-</div>
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-        <input type="submit" className="btn btn-success" value="제출" />
+
+        <div className="card mb-3">
+          <div className="card-header">
+            <h2>프로젝트</h2>
+          </div>
+          <div className="card-body">
+            {projectEntries.map((projectEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>프로젝트명:</label>
+                  <input type="text" className="form-control" name="title" value={projectEntry.title} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>설명:</label>
+                  <textarea className="form-control" name="description" value={projectEntry.description} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>githublink:</label>
+                  <input type="text" className="form-control" name="link" value={projectEntry.link} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <label>프로젝트 이미지:</label>
+                  <input type="file" className="form-control-file" name="image" value={projectEntry.image} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+                </div>
+                <button type="button" className="btn btn-secondary" onClick={() => handleAddProject(index)}>추가</button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {projectDetails.map((project, index) => (
+          <div className="card mb-3" key={index}>
+            <div className="card-header">
+              <h3>{project.title}</h3>
+            </div>
+            <div className="card-body">
+              <p>설명: {project.description}</p>
+              <p>githublink: {project.link}</p>
+              <p>프로젝트 이미지: {project.image}</p>
+            </div>
+            <div className="card-footer">
+              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
+            </div>
+          </div>
+        ))}
+
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+          <button type="button" className="btn btn-primary" onClick={() => handleAddFields(setProjectEntries, { title: '', description: '', link: '' })}>
+            프로젝트 항목 추가
+          </button>
+        </div>
+
+
+
+
+
+        <div className="card mb-3">
+          <div className="card-header">
+            <h2>Additional things</h2>
+          </div>
+          <div className="card-body">
+            {additionalEntries.map((additionalEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>제목:</label>
+                  <input type="text" className="form-control" name="title" value={additionalEntry.title} onChange={(event) => handleInputChange(setAdditionalEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <button type="button" className="btn btn-secondary" onClick={() => handleAddAdditionalEntry(index)}>
+                    추가
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {additionalDetails.map((additional, entryIndex) => (
+          <div className="card mb-3" key={entryIndex}>
+            <div className="card-header">
+              <h3>{additional.title}</h3>
+            </div>
+            <div className="card-body">
+              {additional.content.map((subheading, subheadingIndex) => (
+                <div key={subheadingIndex}>
+                  <div className="form-group">
+                    <label>소제목:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="subtitle"
+                      value={subheading.subtitle}
+                      onChange={(event) => handleSubheadingChange(entryIndex, subheadingIndex, event)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>내용:</label>
+                    <textarea
+                      className="form-control"
+                      name="content"
+                      value={subheading.content}
+                      onChange={(event) => handleSubheadingChange(entryIndex, subheadingIndex, event)}
+                    ></textarea>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => handleRemoveSubheading(entryIndex, subheadingIndex)}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="card-footer">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleAddSubheading(entryIndex)}
+              >
+                소제목 추가
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleRemove(setAdditionalDetails, entryIndex)}
+              >
+                X
+              </button>
+            </div>
+          </div>
+        ))}
+
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => handleAddFields(setAdditionalEntries, { title: '', content: [] })}
+          >
+            큰 제목 추가
+          </button>
+        </div>
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+          <input type="submit" className="btn btn-success" value="제출" />
         </div>
       </form>
     </div>
