@@ -46,11 +46,11 @@ const Homepage = () => {
 	return (
 		<React.Fragment>
 			<Helmet>
-				<title>{data.name}'s Portfolio</title>
+				<title>{data&&data.name}'s Portfolio</title>
 			</Helmet>
 
 			<div className="page-content">
-				<NavBar id={data.id} active="home" />
+				<NavBar id={id} active="home" />
 				<br></br>
 				<br></br>
 				<div className="content-wrapper">
@@ -96,7 +96,7 @@ const Homepage = () => {
 								<div className="homepage-image-container">
 									<div className="homepage-image-wrapper">
 										<img //이미지 지정 가능하게
-											src={process.env.PUBLIC_URL+"/homepage.jpg"}
+											src={require(process.env.PUBLIC_URL+"/"+data&&data.id+"_profile.png")}
 											alt="about"
 											className="homepage-image"
 										/>
@@ -129,7 +129,7 @@ const Homepage = () => {
 						</div>
 
 						<div className="page-footer">
-							<Footer id={data.id}/>
+							<Footer id={id}/>
 						</div>
 					</div>
 				</div>

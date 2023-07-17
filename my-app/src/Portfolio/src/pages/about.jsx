@@ -37,7 +37,7 @@ const About = () => {
 	return (
 		<React.Fragment>
 			<Helmet>
-				<title>{`About | ${data.name}'s Portfolio`}</title>
+				<title>{`About | ${data&&data.name}'s Portfolio`}</title>
 			</Helmet>
 
 			<div className="page-content">

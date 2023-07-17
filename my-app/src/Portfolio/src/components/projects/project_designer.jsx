@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./styles/project_designer.css";
 
 const Project = (props) => {
-	const { image, title, description, link } = props;
+	const { id,index, title, description, link } = props;
 
 	return (
 		<React.Fragment>
@@ -11,7 +11,7 @@ const Project = (props) => {
 				<Link to={link}>
 					<div className="project-container">
                         <img
-							src={process.env.PUBLIC_URL+"/homepage.jpg"}
+							src={require(process.env.PUBLIC_URL+"/"+id&&id+"_"+index+".png")}
 							alt="about"
                             className="project-image"
 						/>

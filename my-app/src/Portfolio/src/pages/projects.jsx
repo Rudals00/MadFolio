@@ -38,7 +38,7 @@ const Projects = () => {
 	return (
 		<React.Fragment>
 			<Helmet>
-				<title>{`Projects | ${data.name}'s Portfolio`}</title>
+				<title>{`Projects | ${data&&data.name}'s Portfolio`}</title>
 			</Helmet>
 
 			<div className="page-content">
@@ -54,7 +54,7 @@ const Projects = () => {
 						<div className="all-projects-container">
 						{data.projects&&data.projects.map((project,index)=>(
 							<div className="all-projects-project" key={index}>
-							<Project title={project.title} description={project.description} link={project.link}/>
+							<Project id={data.id} index={index} title={project.title} description={project.description} link={project.link}/>
 							</div>
 						))
 						}

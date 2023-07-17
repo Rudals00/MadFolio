@@ -1,8 +1,24 @@
 const express=require('express');
 const path=require('path')
+const fs=require('fs')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 var app=express();
 var server=require('http').createServer(app);
+var multer=require('multer')
+
+const storage=multer.diskStorage({
+  destination:(req,file,cb)=>{
+    cb(null,path.join(__dirname,'public/'));
+  },
+  filename:(req,file,cb)=>{
+    if(req.params.index)
+      cb(null,req.params.id+"_"+req.params.index+".png")
+    else
+      cb(null,req.params.id+"_profile.png")
+  }
+})
+const upload=multer({storage:storage})
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'build')))
 app.use(express.urlencoded({extended : false}));
@@ -146,6 +162,31 @@ app.post('/dologin',async (req,res)=>{
       await client.connect();
       userdata=client.db('Users').collection('employees');
       await userdata.insertOne(req.body)
+      res.json({result:"OK"})
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
+
+
+  app.post('/uploadimage/:id',upload.single('image'),(req,res)=>{
+    try{
+      console.log("프로필 업로드됨")
+      res.json({result:"OK"})
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+  app.post('/uploadimage/:id/:index',upload.single('image'),(req,res)=>{
+    try{
+      console.log("프로젝트 업로드됨")
       res.json({result:"OK"})
     }
     finally

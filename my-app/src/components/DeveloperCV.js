@@ -36,6 +36,8 @@ function DeveloperCV(props) {
       values[index][event.target.name] = event.target.value;
       return values;
     });
+
+
   };
 
   const handleAddFields = (entriesSetter, entry) => {
@@ -167,12 +169,12 @@ function DeveloperCV(props) {
     if (!e.target.files)
       return
     const formData = new FormData();
-    formData.append({ id }, e.target.files[0]);
+    formData.append('image', e.target.files[0]);
 
     axios({
-      url: '/uploadimage/' + id,
+      url: '/uploadimage/'+id,
       method: 'post',
-      data: formData,
+      data: formData, 
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -250,8 +252,8 @@ function DeveloperCV(props) {
               <input type="text" className="form-control" name="github" value={userInfo.github} onChange={handleUserInfoChange} />
             </div>
             <div className="mb-3">
-              <label className="form-label">프로필 이미지:</label>
-              <input type="file" className="form-control" name="image" />
+              <label className="form-label" >프로필 이미지:</label>
+              <input type="file" className="form-control" name="image" onChange={handleProfileImage} />
             </div>
           </div>
         </div>
@@ -468,7 +470,24 @@ function DeveloperCV(props) {
                 </div>
                 <div className="form-group">
                   <label>프로젝트 이미지:</label>
-                  <input type="file" className="form-control-file" name="image" value={projectEntry.image} onChange={(event) => handleInputChange(setProjectEntries, index, event)} />
+                  <input type="file" className="form-control-file" name="image" value={projectEntry.image} onChange={(event) => {handleInputChange(setProjectEntries, index, event);
+                      if (!event.target.files)
+                      return
+                    const formData = new FormData();
+                    formData.append('image', event.target.files[0]);
+                
+                    axios({
+                      url: '/uploadimage/'+id+'/'+index,
+                      method: 'post',
+                      data: formData, 
+                      headers: {
+                        'Content-Type': 'multipart/form-data'
+                      }
+                    }).then(_ => { });
+                
+                
+                }
+                  } />
                 </div>
                 <button type="button" className="btn btn-secondary" onClick={() => handleAddProject(index)}>추가</button>
               </div>
