@@ -96,7 +96,7 @@ const Homepage = () => {
 								<div className="homepage-image-container">
 									<div className="homepage-image-wrapper">
 										<img //이미지 지정 가능하게
-											src={require(process.env.PUBLIC_URL+"/"+data&&data.id+"_profile.png")}
+											src={"/"+id+"_profile.png"}
 											alt="about"
 											className="homepage-image"
 										/>

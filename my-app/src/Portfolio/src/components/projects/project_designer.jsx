@@ -11,7 +11,7 @@ const Project = (props) => {
 				<Link to={link}>
 					<div className="project-container">
                         <img
-							src={require(process.env.PUBLIC_URL+"/"+id&&id+"_"+index+".png")}
+							src={"/"+id+"_"+index+".png"}
 							alt="about"
                             className="project-image"
 						/>
