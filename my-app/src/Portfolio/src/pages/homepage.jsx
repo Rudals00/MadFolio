@@ -8,11 +8,14 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import axios from 'axios'
 import '../cv.css'
 import "./styles/homepage.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
+import EditBar from "../components/common/editbar";
 
 const Homepage = () => {
 	const [data,setdata]=useState({})
 	const {id}=useParams()
+	const location=useLocation()
+	const editable=location.state&&location.state.editable
 	const navigate=useNavigate()
 	useEffect(() => {
 		async function getUserdata(){
@@ -50,7 +53,8 @@ const Homepage = () => {
 			</Helmet>
 
 			<div className="page-content">
-				<NavBar id={id} active="home" />
+				<NavBar id={id} editable= {editable} active="home" />
+				<EditBar id={id} editable={editable}/>
 				<br></br>
 				<br></br>
 				<div className="content-wrapper">
@@ -129,7 +133,7 @@ const Homepage = () => {
 						</div>
 
 						<div className="page-footer">
-							<Footer id={id}/>
+							<Footer id={id} editable={editable}/>
 						</div>
 					</div>
 				</div>

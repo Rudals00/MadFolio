@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./styles/footer.css";
 
 const Footer = (props) => {
-	const { id} = props;
+	const { id,editable} = props;
 
 	return (
 
@@ -13,13 +13,13 @@ const Footer = (props) => {
 				<div className="footer-links">
 					<ul className="footer-nav-link-list">
 						<li className="footer-nav-link-item">
-							<Link to={"/viewcv/"+id}>Home</Link>
+							<Link to={"/viewcv/"+id} state={{editable:editable}}>Home</Link>
 						</li>
 						<li className="footer-nav-link-item">
-							<Link to={"/viewcv/"+id+"/about"}>About</Link>
+							<Link to={"/viewcv/"+id+"/about"} state={{editable:editable}}>About</Link>
 						</li>
 						<li className="footer-nav-link-item">
-							<Link to={"/viewcv/"+id+"/projects"}>Projects</Link>
+							<Link to={"/viewcv/"+id+"/projects"} state={{editable:editable}}>Projects</Link>
 						</li>
 					</ul>
 				</div>

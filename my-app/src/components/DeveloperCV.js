@@ -1,11 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
 function DeveloperCV(props) {
   const navigate = useNavigate()
-  const { id } = props
+  const { id,modify } = props
+  const [tempbool,settempbool]=useState(false)
+
   const [educationEntries, setEducationEntries] = useState([]);
   const [workEntries, setWorkEntries] = useState([]);
   const [categoryEntries, setCategoryEntries] = useState([]);
@@ -26,6 +28,46 @@ function DeveloperCV(props) {
   const [projectDetails, setProjectDetails] = useState([]);
   const [additionalDetails, setAdditionalDetails] = useState([]);
 
+  async function getUserdata(){
+    if(modify)
+   {
+    axios({
+      method:'post',
+      url:'/getcvdata',
+      data:{
+        'id':id
+      }
+    }).then(response=>{
+      if(response.data.result!="ERROR")
+      {
+        console.log("useeffect 실행");
+        setUserInfo({
+          name:response.data.name,
+          job:response.data.job,
+          email:response.data.email,
+          description:response.data.description,
+          phone:response.data.phone,
+          office:response.data.office,
+          github:response.data.github
+        })
+        setEducationDetails(response.data.schools)
+        setExperienceDetails(response.data.works)
+        setskillDetails(response.data.stacks)
+        setProjectDetails(response.data.projects)
+        setAdditionalDetails(response.data.additionls)
+        
+      }
+      else{
+        console.log("Error occured!");
+      }
+    }); 
+  }
+  }
+
+  useEffect(() => {
+    getUserdata()
+  }, [])
+  
   const handleUserInfoChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };

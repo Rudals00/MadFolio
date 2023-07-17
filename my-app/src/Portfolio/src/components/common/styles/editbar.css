@@ -1,0 +1,22 @@
+@import "../../../data/styles.css";
+.nav-links {
+    position: absolute;
+    top: 3%;
+    right: 20%;
+  }
+  
+  .nav-links a {
+    margin: 0 10px;
+    border: 2px solid #03310c;
+    color: #000000; /* White button text color */
+    background-color: brown;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 1.3rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }

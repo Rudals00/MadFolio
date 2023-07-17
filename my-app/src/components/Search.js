@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios'
 import Menu from './menu'
+import { useGlobal } from '../global';
 
 function Search() {
     const [searchTerm, setSearchTerm] = useState("");
     const [portfolios, setPortfolios] = useState([]);
+    const {ID} = useGlobal()
     useEffect(()=>{
       async function getUserdata(){
         axios({
@@ -27,7 +29,7 @@ function Search() {
     },[portfolios])
       const navigate = useNavigate();
       const handlePortfolioClick = (portfolio) => {
-        navigate(`/viewcv/${portfolio.id}`);
+        navigate(`/viewcv/${portfolio.id}`,{state:{editable:(portfolio.id==ID)}});
     };
 
       const handleSearch = (event) => {
