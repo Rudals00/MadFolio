@@ -10,7 +10,7 @@ function Hire() {
 
   useEffect(() => {
     const listings = [
-      { id: 1, title: 'Software Engineer', company: 'Company A' },
+      { id: 1, title: 'Software Engineer', company: 'Company A' ,img: 'https://cdn.pixabay.com/photo/2020/01/06/18/13/letter-4745930_1280.jpg' },
       { id: 2, title: 'Product Manager', company: 'Company B' },
       { id: 3, title: 'Data Scientist', company: 'Company C' },
       { id: 4, title: 'Data Scientist', company: 'Company C' },
@@ -36,19 +36,20 @@ function Hire() {
   };
 
   const jobStyle = {
-    width: '500px', // 원하는 너비 값으로 변경해주세요
+    width: '500px', 
     height: '300px',
     padding: '1em',
-    marginTop: '0.5em', // 아이템마다 마진을 추가합니다.
+    marginTop: '0.5em', 
     boxSizing: 'border-box',
-    boxShadow: '5px 5px 15px rgba(0,0,0,0.3)', // 박스에 입체감을 추가합니다.
-    transition: 'transform 0.3s', // 호버 효과를 부드럽게 만들기 위한 CSS transition
-  cursor: 'pointer',
+    boxShadow: '5px 5px 15px rgba(0,0,0,0.3)', 
+    transition: 'transform 0.3s',
+    cursor: 'pointer',
+    borderRadius: '20px',
   };
 
   const hoverJobStyle = {
     ...jobStyle,
-    transform: 'scale(1.05)', // 호버 효과에 따라 아이템을 약간 확대하여 표시
+    transform: 'scale(1.05)',
   };
 
  
@@ -57,13 +58,14 @@ function Hire() {
     <div>
       <div className='logo' onClick={() => navigate("/")} />
       <Menu />
-    <h1 class = "hire-title">채용 정보</h1>
+    <h1 class = "hire-title">Recruitment</h1>
       <div style={containerStyle}>
         {jobListings.map((job) => (
           <div key={job.id} style={job.id === hoveredJobId ? hoverJobStyle : jobStyle}
           onMouseEnter={() => setHoveredJobId(job.id)}
           onMouseLeave={() => setHoveredJobId(null)}
-        >
+        >   
+         <img src={job.img} alt={job.title} style={{width: '80%', height: '70%'}} /> 
             <h2>{job.title}</h2>
             <p>{job.company}</p>
           </div>

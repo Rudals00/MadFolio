@@ -49,7 +49,7 @@ function Main() {
         <div className="backimage"></div>
         <h1 className='Title'>
           <div>Make your perfect</div>
-          <div style={{ marginTop: "25px" }}>Portfolio</div>
+          <div style={{ marginTop: "25px" }}>PORTFOLIO</div>
         </h1>
       </div>
       <div className='main-page'>

@@ -95,8 +95,8 @@
   .editbar-links a {
     margin: 0 10px;
     border: 2px solid #03310c;
-    color: #000000; /* White button text color */
-    background-color: rgb(238, 255, 178);
+    color: #ffffff; /* White button text color */
+    background-color: #808080;
     text-decoration: none;
     padding: 10px 15px;
     font-size: 1.3rem;
@@ -106,7 +106,7 @@
   }
   
   .editbar-links a:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #000000; /* Darker blue on hover */
   }
 
 @media (max-width: 1270px) {
