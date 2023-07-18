@@ -2,7 +2,6 @@ import React, { useEffect,useState } from 'react';
 import '../App.css';
 import DeveloperCV from './DeveloperCV';
 import DesignerCV from './DesignerCV';
-import ManagerCV from './ManagerCV';
 import Menu from './menu'
 import { useGlobal } from '../global';
 import axios from 'axios';
@@ -33,9 +32,6 @@ useEffect(()=>{
           case 'developer':
             setView(<DeveloperCV id={ID} modify={location.state&&location.state.modify}/>)
             break;
-          case 'manager':
-              setView(<ManagerCV id={ID} modify={location.state&&location.state.modify}/>)
-              break;
           case 'designer':
             setView(<DesignerCV id={ID} modify={location.state&&location.state.modify}/>)
               break;

@@ -163,7 +163,6 @@ function Signup() {
                   <option value="">--선택하세요--</option>
                   <option value="developer">개발자</option>
                   <option value="designer">디자이너</option>
-                  <option value="manager">매니저</option>
                 </Form.Control>
               </Form.Group>
 

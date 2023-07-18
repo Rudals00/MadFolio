@@ -6,7 +6,6 @@ import Main from './components/Main'
 import Signup from './components/signup';
 import CreateCV from './components/createCV';
 import Serach from './components/Search';
-import PortfolioDetail from "./components/PortfolioDetail";
 import './Portfolio/src/cv.css'
 import HomePage from './Portfolio/src/pages/homepage'
 import About from './Portfolio/src/pages/about'

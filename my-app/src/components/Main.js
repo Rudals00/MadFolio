@@ -24,7 +24,8 @@ function Main() {
     }
     if (ID != "")
       setView(<><div className='welcome'>{ID}님 환영합니다</div><div className='nav-links'> <Link to="/" onClick={handlelogout}>로그아웃</Link>
-      <Link to="/mypage" >MyPage</Link></div></>)
+      
+      <Link to={'viewcv/'+ ID} state={{editable:true}} >MyPortfolio</Link></div></>)
     else {
       setView(<div className='nav-links'>
         <Link to="/login" className='nav-button'>Login</Link>
