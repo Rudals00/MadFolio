@@ -10,7 +10,7 @@ import { Form, Button, Container, Col, Row, Dropdown } from 'react-bootstrap';
 function Signup() {
   const navigate = useNavigate()
   const [username, setUsername] = useState('');
-  const [CheckResult, setCheckResult] = useState(true);
+  const [CheckResult, setCheckResult] = useState(false);
   const [resulttext, setresulttext] = useState('');
   const [password, setPassword] = useState('');
   const [job, setJob] = useState('');
@@ -59,12 +59,13 @@ function Signup() {
         }
       }).then(response => {
         if (response.data.result === "OK") {
+          alert("가입 완료")
           navigate('/')
         }
       });
     }
     else {
-
+      alert("아이디 중복확인을 해 주세요")
     }
   }
 
@@ -148,7 +149,7 @@ function Signup() {
               <Form.Group controlId="formUsername" style={customMarginTop}>
                 <Form.Label>ID:</Form.Label>
                 <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                <button className="btn-custom" style={floatRight} onClick={handleUsernameCheck}>중복확인</button>
+                <button className="btn-custom" type="button" style={floatRight} onClick={handleUsernameCheck}>중복확인</button>
                 <Form.Text>{resulttext}</Form.Text>
               </Form.Group>
 
