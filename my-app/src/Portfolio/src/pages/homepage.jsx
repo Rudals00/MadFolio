@@ -14,6 +14,7 @@ import EditBar from "../components/common/editbar";
 const Homepage = () => {
 	const [data,setdata]=useState({})
 	const {id}=useParams()
+	const [icon,seticon]=useState(null)
 	const location=useLocation()
 	const editable=location.state&&location.state.editable
 	const navigate=useNavigate()
@@ -29,6 +30,7 @@ const Homepage = () => {
 			  if(response.data!="ERROR")
 			  {
 				setdata(response.data)
+				seticon(<i class={(response.data.category=="designer")?"fa-solid fa-palette":"fa-brands fa-github"}></i>)
 			  }
 			  else{
 				alert("You have to create one first!")
@@ -36,15 +38,13 @@ const Homepage = () => {
 			  }
 			}); 
 		  }
-		  if(id)
-		  	getUserdata()
-		  else{
-			alert("Please Login first")
-		  	navigate("/login")
+		  if(!id)
+		  {
+			  navigate('/login')
 		  }
+		  	getUserdata()
 		window.scrollTo(0, 0);
 	}, []);
-
 
 	return (
 		<React.Fragment>
@@ -114,7 +114,7 @@ const Homepage = () => {
 								</div>
 						<div className="homepage-socials">
 						<div className="homepage-social-icon">
-							<i class="fa-brands fa-github"></i></div>
+							{icon}</div>
 							<a
 								href={data.github}
 								target="_blank"

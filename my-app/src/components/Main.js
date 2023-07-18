@@ -58,7 +58,7 @@ function Main() {
           <h2><Link to="/createCV" className='create-cv-link'>Create one</Link></h2>
         </div>
         <div className='create-cv-button'>
-          <h2><Link to={'viewcv/'+ ID} state={{editable:true}} className='create-cv-link'>Modify</Link></h2>
+          <h2><Link to={'viewcv/'+ ID} state={{editable:true}} onClick={()=>{if(ID==""){alert("Login first!")}}} className='create-cv-link'>Modify</Link></h2>
         </div>
       </div>
       <div className='bottom-section'></div>

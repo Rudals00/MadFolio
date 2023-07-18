@@ -26,7 +26,7 @@ function Search() {
         }); 
       }
       getUserdata();
-    },[portfolios])
+    },[])
       const navigate = useNavigate();
       const handlePortfolioClick = (portfolio) => {
         navigate(`/viewcv/${portfolio.id}`,{state:{editable:(portfolio.id==ID)}});

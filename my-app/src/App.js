@@ -28,6 +28,7 @@ function App() {
     <Route path="/signup" exact={true} element={<Signup />}></Route>
     <Route path="/createCV" exact={true} element={<CreateCV />}></Route>
     <Route path="/Search" exact={true} element={<Serach />}></Route>
+    <Route path="/viewcv/" exact={true} element={<HomePage />}></Route>
     <Route path="/viewcv/:id" exact={true} element={<HomePage />}></Route>
     <Route path="/viewcv/:id/about" exact={true} element={<About />}></Route>
     <Route path="/viewcv/:id/projects" exact={true} element={<Project />}></Route>

@@ -34,6 +34,7 @@ const About = () => {
 			}); 
 		  }
 		  getUserdata()
+		  console.log(data.category)
 		window.scrollTo(0, 0);
 	}, []);
 
@@ -54,7 +55,7 @@ const About = () => {
 						<div className="about-main">
 							<div className="about-right-side">
 								<div className="cv-title about-title">
-									Developmet stacks
+									{(data.category=="designer")? "Design skills":"Developmet stacks"}
 								</div>
 								{data.stacks&&data.stacks.map(item=>(
 									<>
@@ -65,7 +66,7 @@ const About = () => {
 									{item.substacks.map((stack, index) => (
 										<div className="all-stacks-project" key={index}>
 										<Stack
-										logo={stack.logo}
+										logo={(data.category=="designer")?"fa-solid fa-paintbrush":"fa-solid fa-code"}
 										title={stack.title}
 										description={stack.description}
 										/>
