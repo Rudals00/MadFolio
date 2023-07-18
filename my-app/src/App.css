@@ -244,3 +244,9 @@
   font-size: 17px; /* 글자 크기 조절 */
   border-radius: 20px;
 }
+
+.hire-title {
+  text-align: center;
+  margin-top: 1.5em; 
+  font-family: 'Nanum Myeongjo', serif;
+}

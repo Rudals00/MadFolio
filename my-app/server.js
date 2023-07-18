@@ -6,6 +6,7 @@ var app=express();
 var server=require('http').createServer(app);
 var multer=require('multer')
 
+
 const storage=multer.diskStorage({
   destination:(req,file,cb)=>{
     cb(null,path.join(__dirname,'public/'));
@@ -209,3 +210,18 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
+
+// 크롤링
+
+const cheerio = require("cheerio");
+const axios = require("axios");
+const iconv = require("iconv-lite");
+const url = "https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_mcls=2&panel_type=&search_optional_item=n&search_done=y&panel_count=y&preview=y";
+
+const fetchData = async(url) => {
+  const result = await axios.get(url);
+  return cheerio.load(result.data);
+};
+
+const $ = await fetchData(url);
+
