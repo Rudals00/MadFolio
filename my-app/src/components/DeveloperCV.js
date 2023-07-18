@@ -98,6 +98,14 @@ function DeveloperCV(props) {
       return newEntries;
     });
   };
+  const handlecancelExperience = (index) => {
+    setWorkEntries((prevEntries) => {
+      const newEntries = [...prevEntries];
+      newEntries.splice(index, 1);
+      return newEntries;
+    });
+  };
+
   const handleAddEducation = (index) => {
     const newEducation = educationEntries[index];
     setEducationDetails((prevDetails) => [...prevDetails, newEducation]);
@@ -108,12 +116,25 @@ function DeveloperCV(props) {
       return newEntries;
     });
   };
-
+  const handleCancelEducation = (index) => {
+    setEducationEntries((prevEntries) => {
+      const newEntries = [...prevEntries];
+      newEntries.splice(index, 1);
+      return newEntries;
+    });
+  };
 
   const handleAddProject = (index) => {
     const newProject = projectEntries[index];
     setProjectDetails((prevDetails) => [...prevDetails, newProject]);
 
+    setProjectEntries((prevEntries) => {
+      const newEntries = [...prevEntries];
+      newEntries.splice(index, 1);
+      return newEntries;
+    });
+  };
+  const handlecancelProject = (index) => {
     setProjectEntries((prevEntries) => {
       const newEntries = [...prevEntries];
       newEntries.splice(index, 1);
@@ -132,12 +153,26 @@ function DeveloperCV(props) {
       return newEntries;
     });
   };
-
+  const handlecancelAdditionalEntry = (index) => {
+    setAdditionalEntries((prevEntries) => {
+      const newEntries = [...prevEntries];
+      newEntries.splice(index, 1);
+      return newEntries;
+    });
+  };
   const handleAddCategoryEntry = (index) => {
     const newEntry = categoryEntries[index];
     newEntry.substacks = [];
     setskillDetails((prevDetails) => [...prevDetails, newEntry]);
 
+    setCategoryEntries((prevEntries) => {
+      const newEntries = [...prevEntries];
+      newEntries.splice(index, 1);
+      return newEntries;
+
+    })
+  }
+  const handlecancelCategoryEntry = (index) => {
     setCategoryEntries((prevEntries) => {
       const newEntries = [...prevEntries];
       newEntries.splice(index, 1);
@@ -287,7 +322,7 @@ function DeveloperCV(props) {
             </div>
             <div className="mb-3">
               <label className="form-label">주소:</label>
-              <input type="text" className="form-control" name="address" value={userInfo.address} onChange={handleUserInfoChange} />
+              <input type="text" className="form-control" name="office" value={userInfo.office} onChange={handleUserInfoChange} />
             </div>
             <div className="mb-3">
               <label className="form-label">github link:</label>
@@ -305,6 +340,20 @@ function DeveloperCV(props) {
             <h2>학력 등 교육 관련</h2>
           </div>
           <div className="card-body">
+          {educationDetails.map((education, index) => (
+          <div className="card mb-3" key={index}>
+            <div className="card-header">
+              <h3>{education.name}</h3>
+            </div>
+            <div className="card-body">
+              <p>설명: {education.description}</p>
+              <p>기간: {education.duration}</p>
+            </div>
+            <div className="card-footer">
+              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
+            </div>
+          </div>
+        ))}
             {educationEntries.map((educationEntry, index) => (
               <div key={index}>
                 <div className="form-group">
@@ -320,25 +369,13 @@ function DeveloperCV(props) {
                   <input type="text" className="form-control" name="duration" value={educationEntry.duration} onChange={(event) => handleInputChange(setEducationEntries, index, event)} />
                 </div>
                 <button type="button" className="btn btn-secondary" onClick={() => handleAddEducation(index)}>추가</button>
+                <button type="button" className="btn btn-secondary" onClick={() => handleCancelEducation(index)}>취소</button>
               </div>
             ))}
           </div>
         </div>
 
-        {educationDetails.map((education, index) => (
-          <div className="card mb-3" key={index}>
-            <div className="card-header">
-              <h3>{education.name}</h3>
-            </div>
-            <div className="card-body">
-              <p>설명: {education.description}</p>
-              <p>기간: {education.duration}</p>
-            </div>
-            <div className="card-footer">
-              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
-            </div>
-          </div>
-        ))}
+
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
@@ -352,6 +389,20 @@ function DeveloperCV(props) {
             <h2>경력 추가</h2>
           </div>
           <div className="card-body">
+          {experienceDetails.map((experience, index) => (
+          <div className="card mb-3" key={index}>
+            <div className="card-header">
+              <h3>{experience.name}</h3>
+            </div>
+            <div className="card-body">
+              <p>설명: {experience.description}</p>
+              <p>기간: {experience.duration}</p>
+            </div>
+            <div className="card-footer">
+              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
+            </div>
+          </div>
+        ))}
             {workEntries.length > 0 && workEntries.map((workEntry, index) => (
               <div key={index}>
                 <div className="form-group">
@@ -367,25 +418,13 @@ function DeveloperCV(props) {
                   <input type="text" className="form-control" name="duration" value={workEntry.duration} onChange={(event) => handleInputChange(setWorkEntries, index, event)} />
                 </div>
                 <button type="button" className="btn btn-secondary" onClick={() => handleAddExperience(index)}>추가</button>
+                <button type="button" className="btn btn-secondary" onClick={() => handlecancelExperience(index)}>취소</button>
               </div>
             ))}
           </div>
         </div>
 
-        {experienceDetails.map((experience, index) => (
-          <div className="card mb-3" key={index}>
-            <div className="card-header">
-              <h3>{experience.name}</h3>
-            </div>
-            <div className="card-body">
-              <p>설명: {experience.description}</p>
-              <p>기간: {experience.duration}</p>
-            </div>
-            <div className="card-footer">
-              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
-            </div>
-          </div>
-        ))}
+
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setWorkEntries, { name: '', description: '', duration: '' })}>
@@ -399,29 +438,7 @@ function DeveloperCV(props) {
             <h2>Development Stacks</h2>
           </div>
           <div className="card-body">
-            {categoryEntries.map((categoryEntry, index) => (
-              <div key={index}>
-                <div className="form-group">
-                  <label>분류:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="subtitle"
-                    value={categoryEntry.subtitle}
-                    onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
-                  />
-                </div>
-                <div className="form-group">
-                  <button type="button" className="btn btn-secondary" onClick={() => handleAddCategoryEntry(index)}>
-                    추가
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {skillDetails.map((skill, entryIndex) => (
+          {skillDetails.map((skill, entryIndex) => (
           <div className="card mb-3" key={entryIndex}>
             <div className="card-header">
               <h3>{skill.subtitle}</h3>
@@ -435,8 +452,8 @@ function DeveloperCV(props) {
                       <input
                         type="text"
                         className="form-control"
-                        name="subtitle"
-                        value={skill.subtitle}
+                        name="title"
+                        value={skill.title}
                         onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
                       />
                     </div>
@@ -479,6 +496,32 @@ function DeveloperCV(props) {
             </div>
           </div>
         ))}
+            {categoryEntries.map((categoryEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>분류:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="subtitle"
+                    value={categoryEntry.subtitle}
+                    onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
+                  />
+                </div>
+                <div className="form-group">
+                  <button type="button" className="btn btn-secondary" onClick={() => handleAddCategoryEntry(index)}>
+                    추가
+                  </button>
+                  <button type="button" className="btn btn-secondary" onClick={() => handlecancelCategoryEntry(index)}>
+                    취소
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button
@@ -496,6 +539,21 @@ function DeveloperCV(props) {
             <h2>프로젝트</h2>
           </div>
           <div className="card-body">
+          {projectDetails.map((project, index) => (
+          <div className="card mb-3" key={index}>
+            <div className="card-header">
+              <h3>{project.title}</h3>
+            </div>
+            <div className="card-body">
+              <p>설명: {project.description}</p>
+              <p>githublink: {project.link}</p>
+              <p>프로젝트 이미지: {project.image}</p>
+            </div>
+            <div className="card-footer">
+              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
+            </div>
+          </div>
+        ))}
             {projectEntries.map((projectEntry, index) => (
               <div key={index}>
                 <div className="form-group">
@@ -532,26 +590,13 @@ function DeveloperCV(props) {
                   } />
                 </div>
                 <button type="button" className="btn btn-secondary" onClick={() => handleAddProject(index)}>추가</button>
+                <button type="button" className="btn btn-secondary" onClick={() => handlecancelProject(index)}>취소</button>
               </div>
             ))}
           </div>
         </div>
 
-        {projectDetails.map((project, index) => (
-          <div className="card mb-3" key={index}>
-            <div className="card-header">
-              <h3>{project.title}</h3>
-            </div>
-            <div className="card-body">
-              <p>설명: {project.description}</p>
-              <p>githublink: {project.link}</p>
-              <p>프로젝트 이미지: {project.image}</p>
-            </div>
-            <div className="card-footer">
-              <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
-            </div>
-          </div>
-        ))}
+
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setProjectEntries, { title: '', description: '', link: '' })}>
@@ -568,28 +613,13 @@ function DeveloperCV(props) {
             <h2>Additional things</h2>
           </div>
           <div className="card-body">
-            {additionalEntries.map((additionalEntry, index) => (
-              <div key={index}>
-                <div className="form-group">
-                  <label>제목:</label>
-                  <input type="text" className="form-control" name="title" value={additionalEntry.title} onChange={(event) => handleInputChange(setAdditionalEntries, index, event)} />
-                </div>
-                <div className="form-group">
-                  <button type="button" className="btn btn-secondary" onClick={() => handleAddAdditionalEntry(index)}>
-                    추가
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {additionalDetails.map((additional, entryIndex) => (
+          {additionalDetails.map((additional, entryIndex) => (
           <div className="card mb-3" key={entryIndex}>
             <div className="card-header">
               <h3>{additional.title}</h3>
             </div>
             <div className="card-body">
+              
               {additional.content.map((subheading, subheadingIndex) => (
                 <div key={subheadingIndex}>
                   <div className="form-group">
@@ -639,6 +669,26 @@ function DeveloperCV(props) {
             </div>
           </div>
         ))}
+            {additionalEntries.map((additionalEntry, index) => (
+              <div key={index}>
+                <div className="form-group">
+                  <label>제목:</label>
+                  <input type="text" className="form-control" name="title" value={additionalEntry.title} onChange={(event) => handleInputChange(setAdditionalEntries, index, event)} />
+                </div>
+                <div className="form-group">
+                  <button type="button" className="btn btn-secondary" onClick={() => handleAddAdditionalEntry(index)}>
+                    추가
+                  </button>
+                  <button type="button" className="btn btn-secondary" onClick={() => handlecancelAdditionalEntry(index)}>
+                    취소
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
 
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button
