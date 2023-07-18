@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import Menu from './menu';
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom/dist';
 
 function Hire() {
@@ -9,20 +10,23 @@ function Hire() {
   const [hoveredJobId, setHoveredJobId] = useState(null);
 
   useEffect(() => {
-    const listings = [
-      { id: 1, title: 'Software Engineer', company: 'Company A' ,img: 'https://cdn.pixabay.com/photo/2020/01/06/18/13/letter-4745930_1280.jpg' },
-      { id: 2, title: 'Product Manager', company: 'Company B' },
-      { id: 3, title: 'Data Scientist', company: 'Company C' },
-      { id: 4, title: 'Data Scientist', company: 'Company C' },
-      { id: 5, title: 'Data Scientist', company: 'Company C' },
-      { id: 6, title: 'Data Scientist', company: 'Company C' },
-      { id: 7, title: 'Data Scientist', company: 'Company C' },
-      { id: 8, title: 'Data Scientist', company: 'Company C' },
-      { id: 9, title: 'Data Scientist', company: 'Company C' },
-      { id: 10, title: 'Data Scientist', company: 'Company C' },
-    ];
+    async function getUserdata(){
+			axios({
+			  method:'post',
+			  url:'/gethireinfo',
+        data:{}
+			}).then(response=>{
+			  if(response.data!="ERROR")
+			  {
+				setJobListings(response.data)
+				
+			  }
+			  else{
 
-    setJobListings(listings);
+			  }
+			}); 
+		  }
+		  	getUserdata()
   }, []);
 
   const containerStyle = {
@@ -52,7 +56,7 @@ function Hire() {
     transform: 'scale(1.05)',
   };
 
- 
+  const gotoLink = (link)=>{window.open(link)}
 
   return (
     <div>
@@ -60,14 +64,16 @@ function Hire() {
       <Menu />
     <h1 class = "hire-title">Recruitment</h1>
       <div style={containerStyle}>
-        {jobListings.map((job) => (
-          <div key={job.id} style={job.id === hoveredJobId ? hoverJobStyle : jobStyle}
-          onMouseEnter={() => setHoveredJobId(job.id)}
+        {jobListings.map((job,index) => (
+          <div key={index} style={index=== hoveredJobId ? hoverJobStyle : jobStyle} onClick={()=>gotoLink(job.url)}
+          onMouseEnter={() => setHoveredJobId(index)}
           onMouseLeave={() => setHoveredJobId(null)}
         >   
-         <img src={job.img} alt={job.title} style={{width: '80%', height: '70%'}} /> 
             <h2>{job.title}</h2>
             <p>{job.company}</p>
+            {job.skills&&job.skills.map((skill)=>(
+              <p>{skill}</p>
+            ))}
           </div>
         ))}
       </div>

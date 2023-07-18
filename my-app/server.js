@@ -5,6 +5,8 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 var app=express();
 var server=require('http').createServer(app);
 var multer=require('multer')
+const cheerio = require("cheerio");
+const axios = require("axios");
 
 
 const storage=multer.diskStorage({
@@ -212,6 +214,17 @@ app.post('/dologin',async (req,res)=>{
   
   });
 
+  app.post('/gethireinfo',async (req,res)=>{
+    try{
+      data=await getHireData(url)
+      res.json(data)
+    }
+    finally
+    {
+      // client.close();
+    }
+  });
+
 server.listen(80,()=>{
     console.log("Server on 80")
 });
@@ -228,19 +241,23 @@ const client = new MongoClient(uri, {
 
 // // 크롤링
 
-// // const cheerio = require("cheerio");
-// // const axios = require("axios");
-// // const iconv = require("iconv-lite");
-// // const url = "https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_mcls=2&panel_type=&search_optional_item=n&search_done=y&panel_count=y&preview=y";
+const url = 'https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_mcls=2&panel_type=&search_optional_item=n&search_done=y&panel_count=y&preview=y';
 
-// <<<<<<< Updated upstream
-// // const fetchData = async (url) => {
-// =======
-// // const fetchData = async(url) => {
-// >>>>>>> Stashed changes
-// //   const result = await axios.get(url);
-// //   return cheerio.load(result.data);
-// // };
-
-// // const $ = await fetchData(url);
-
+  async function getHireData(url) 
+  {
+    let res=[]
+    const html=await axios.get(url);
+    const $=cheerio.load(html.data);
+    const list=$(".common_recruilt_list").find("#default_list_wrap").find("section").find(".list_item");
+    list.map((i,element)=>{
+      let sublist=[]
+      $(element).find(".job_sector").find("span").map((i,element)=>sublist.push($(element).text()))
+      res[i]={
+        title:$(element).find(".job_tit").find("a").attr("title"),
+        company:$(element).find(".company_nm").find(".str_tit").text().trim(),
+        skills:sublist,
+        url:"https://www.saramin.co.kr"+$(element).find(".job_tit").find("a").attr("href")
+      }
+    });
+    return res
+  }
