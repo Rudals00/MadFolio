@@ -9,7 +9,7 @@ var multer=require('multer')
 
 const storage=multer.diskStorage({
   destination:(req,file,cb)=>{
-    cb(null,path.join(__dirname,'public/'));
+    cb(null,path.join(__dirname,'build/'));
   },
   filename:(req,file,cb)=>{
     if(req.params.index)
@@ -149,6 +149,21 @@ app.post('/dologin',async (req,res)=>{
       await userdata.replaceOne({id:req.body.id},req.body,{upsert:true})
       res.json({result:"SUCCESS"})
       
+      
+    }
+    finally
+    {
+      // client.close();
+    }
+  
+  });
+
+  app.post('/deletecv',async (req,res)=>{
+    try{
+      await client.connect();
+      userdata=client.db('Users').collection('portfolios');
+      await userdata.deleteOne(req.body)
+      res.json({result:"SUCCESS"})
       
     }
     finally

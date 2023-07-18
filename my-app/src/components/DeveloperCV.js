@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 function DeveloperCV(props) {
   const navigate = useNavigate()
   const { id,modify } = props
-  const [tempbool,settempbool]=useState(false)
 
   const [educationEntries, setEducationEntries] = useState([]);
   const [workEntries, setWorkEntries] = useState([]);
@@ -243,7 +242,8 @@ function DeveloperCV(props) {
         'works': experienceDetails,
         'stacks': skillDetails,
         'additionls': additionalDetails,
-        'projects': projectDetails
+        'projects': projectDetails,
+       // 'category': 
       }
     }).then(response => {
       if (response.data.result == "SUCCESS") {
@@ -406,8 +406,8 @@ function DeveloperCV(props) {
                   <input
                     type="text"
                     className="form-control"
-                    name="title"
-                    value={categoryEntry.title}
+                    name="subtitle"
+                    value={categoryEntry.subtitle}
                     onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
                   />
                 </div>
@@ -424,7 +424,7 @@ function DeveloperCV(props) {
         {skillDetails.map((skill, entryIndex) => (
           <div className="card mb-3" key={entryIndex}>
             <div className="card-header">
-              <h3>{skill.title}</h3>
+              <h3>{skill.subtitle}</h3>
             </div>
             <div className="card-body">
               <ul>
@@ -435,8 +435,8 @@ function DeveloperCV(props) {
                       <input
                         type="text"
                         className="form-control"
-                        name="title"
-                        value={skill.title}
+                        name="subtitle"
+                        value={skill.subtitle}
                         onChange={(event) => handlesubstacksChange(entryIndex, skillIndex, event)}
                       />
                     </div>
@@ -484,7 +484,7 @@ function DeveloperCV(props) {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => handleAddCategory(setCategoryEntries, { title: '', substacks: [] })}
+            onClick={() => handleAddCategory(setCategoryEntries, { subtitle: '', substacks: [] })}
           >
             분류추가
           </button>
@@ -519,7 +519,7 @@ function DeveloperCV(props) {
                     formData.append('image', event.target.files[0]);
                 
                     axios({
-                      url: '/uploadimage/'+id+'/'+index,
+                      url: '/uploadimage/'+id+'/'+(projectDetails.length+index),
                       method: 'post',
                       data: formData, 
                       headers: {

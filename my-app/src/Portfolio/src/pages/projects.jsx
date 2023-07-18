@@ -1,10 +1,11 @@
 import React, {useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link,useNavigate, useParams,useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import NavBar from "../components/common/navBar";
 import Footer from "../components/common/footer";
 import Project from "../components/projects/project_designer";
+import EditBar from "../components/common/editbar";
 import axios from 'axios'
 import '../cv.css'
 import "./styles/projects.css";
@@ -13,6 +14,8 @@ const Projects = () => {
 	const [data,setdata]=useState({})
 	const {id}=useParams()
 	const navigate=useNavigate()
+	const location=useLocation()
+	const editable=location.state&&location.state.editable
 	useEffect(() => {
 		async function getUserdata(){
 			axios({
@@ -42,7 +45,9 @@ const Projects = () => {
 			</Helmet>
 
 			<div className="page-content">
-				<NavBar active="projects" id={data.id}/>
+			<div className="editbar-links"><Link to="/" className='editbar-home'>Main</Link></div>
+				<NavBar active="projects" id={data.id} editable={editable}/>
+				{editable&&<EditBar id={id}/>}
 				<div className="content-wrapper">
 					<div className="projects-container">
 						<div className="cv-title projects-title">
@@ -61,7 +66,7 @@ const Projects = () => {
 						</div>
 					</div>
 					<div className="page-footer">
-						<Footer id={data.id}/>
+						<Footer id={data.id} editable={editable}/>
 					</div>
 				</div>
 			</div>

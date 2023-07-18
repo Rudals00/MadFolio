@@ -95,6 +95,13 @@
   background-color: #000000; /* Darker green on hover */
 }
 
+.welcome{
+  font-size:20px;
+  position: absolute;
+  top:30px;
+  right:15%;
+  font-family: 'Nanum Myeongjo', serif;
+}
 .Title {
   font-size: 4.0rem;
   margin-top: 150px;

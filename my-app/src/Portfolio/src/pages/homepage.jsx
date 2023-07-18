@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import axios from 'axios'
 import '../cv.css'
 import "./styles/homepage.css";
-import { useNavigate, useParams,useLocation } from "react-router-dom";
+import {Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import EditBar from "../components/common/editbar";
 
 const Homepage = () => {
@@ -53,8 +53,9 @@ const Homepage = () => {
 			</Helmet>
 
 			<div className="page-content">
+			<div className="editbar-links"><Link to="/" className='editbar-home'>Main</Link></div>
 				<NavBar id={id} editable= {editable} active="home" />
-				<EditBar id={id} editable={editable}/>
+				{editable&&<EditBar id={id}/>}
 				<br></br>
 				<br></br>
 				<div className="content-wrapper">
@@ -74,11 +75,11 @@ const Homepage = () => {
 									Contact
 								</div>
 								<div className="homepage-socials">
-								<a
+								<div
 								className="homepage-social-icon"
 								>
 								<i class="fa-solid fa-building"></i> &nbsp; {data.office}
-								</a>
+								</div>
 								</div>
 								<div className="homepage-socials">
 								<div
@@ -88,11 +89,11 @@ const Homepage = () => {
 								</div>
 								</div>
 								<div className="homepage-socials">
-								<a
+								<div
 								className="homepage-social-icon"
 								>
 								<i class="fa-solid fa-envelope"></i> &nbsp; {data.email}
-								</a>
+								</div>
 								</div>
 							</div>
 

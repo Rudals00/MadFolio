@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import '../App.css';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function DesignerCV(props) {
   const navigate = useNavigate()
-  const { id } = props
+  const { id ,modify} = props
   const [educationEntries, setEducationEntries] = useState([]);
   const [workEntries, setWorkEntries] = useState([]);
   const [categoryEntries, setCategoryEntries] = useState([]);
@@ -26,6 +26,47 @@ function DesignerCV(props) {
   const [skillDetails, setskillDetails] = useState([]);
   const [projectDetails, setProjectDetails] = useState([]);
   const [additionalDetails, setAdditionalDetails] = useState([]);
+
+
+  async function getUserdata(){
+    if(modify)
+   {
+    axios({
+      method:'post',
+      url:'/getcvdata',
+      data:{
+        'id':id
+      }
+    }).then(response=>{
+      if(response.data.result!="ERROR")
+      {
+        console.log("useeffect 실행");
+        setUserInfo({
+          name:response.data.name,
+          job:response.data.job,
+          email:response.data.email,
+          description:response.data.description,
+          phone:response.data.phone,
+          office:response.data.office,
+          github:response.data.github
+        })
+        setEducationDetails(response.data.schools)
+        setExperienceDetails(response.data.works)
+        setskillDetails(response.data.stacks)
+        setProjectDetails(response.data.projects)
+        setAdditionalDetails(response.data.additionls)
+        
+      }
+      else{
+        console.log("Error occured!");
+      }
+    }); 
+  }
+  }
+
+  useEffect(() => {
+    getUserdata()
+  }, [])
 
   const handleUserInfoChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
@@ -363,8 +404,8 @@ function DesignerCV(props) {
                   <input
                     type="text"
                     className="form-control"
-                    name="title"
-                    value={categoryEntry.title}
+                    name="subtitle"
+                    value={categoryEntry.subtitle}
                     onChange={(event) => handleInputChange(setCategoryEntries, index, event)}
                   />
                 </div>
@@ -381,7 +422,7 @@ function DesignerCV(props) {
         {skillDetails.map((skill, entryIndex) => (
           <div className="card mb-3" key={entryIndex}>
             <div className="card-header">
-              <h3>{skill.title}</h3>
+              <h3>{skill.subtitle}</h3>
             </div>
             <div className="card-body">
               <ul>
@@ -441,7 +482,7 @@ function DesignerCV(props) {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => handleAddCategory(setCategoryEntries, { title: '', substacks: [] })}
+            onClick={() => handleAddCategory(setCategoryEntries, { subtitle: '', substacks: [] })}
           >
             분류추가
           </button>

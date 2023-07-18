@@ -23,8 +23,8 @@ function Main() {
         setID(saved)
     }
     if (ID != "")
-      setView(<div className='nav-links'>{ID}님 환영합니다 <Link to="/" onClick={handlelogout}>로그아웃</Link>
-      <Link to="/mypage" className='nav-button'>MyPage</Link></div>)
+      setView(<><div className='welcome'>{ID}님 환영합니다</div><div className='nav-links'> <Link to="/" onClick={handlelogout}>로그아웃</Link>
+      <Link to="/mypage" >MyPage</Link></div></>)
     else {
       setView(<div className='nav-links'>
         <Link to="/login" className='nav-button'>Login</Link>

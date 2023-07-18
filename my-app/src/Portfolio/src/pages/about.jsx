@@ -1,16 +1,20 @@
 import React, { useState,useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link,useParams,useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import axios from 'axios';
 import NavBar from "../components/common/navBar";
 import Footer from "../components/common/footer";
 import Stack from "../components/projects/stack";
+import EditBar from "../components/common/editbar";
 import '../cv.css'
 import "./styles/about.css";
+
 
 const About = () => {
 	const [data,setdata]=useState({})
 	const {id}=useParams()
+	const location=useLocation()
+	const editable=location.state&&location.state.editable
 	useEffect(() => {
 		async function getUserdata(){
 			axios({
@@ -41,7 +45,9 @@ const About = () => {
 			</Helmet>
 
 			<div className="page-content">
-				<NavBar active="about" id={data.id}/>
+			<div className="editbar-links"><Link to="/" className='editbar-home'>Main</Link></div>
+				<NavBar active="about" id={data.id} editable={editable}/>
+				{editable&&<EditBar id={id}/>}
 				<div className="content-wrapper">
 
 					<div className="about-container">
@@ -89,7 +95,7 @@ const About = () => {
 						</div>
 					</div>
 					<div className="page-footer">
-						<Footer id={data.id}/>
+						<Footer id={data.id} editable={editable}/>
 					</div>
 				</div>
 			</div>
