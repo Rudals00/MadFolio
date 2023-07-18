@@ -243,7 +243,7 @@ function DeveloperCV(props) {
         'stacks': skillDetails,
         'additionls': additionalDetails,
         'projects': projectDetails,
-       // 'category': 
+        'category': 'developer' 
       }
     }).then(response => {
       if (response.data.result == "SUCCESS") {

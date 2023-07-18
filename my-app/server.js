@@ -233,10 +233,10 @@ const axios = require("axios");
 const iconv = require("iconv-lite");
 const url = "https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_mcls=2&panel_type=&search_optional_item=n&search_done=y&panel_count=y&preview=y";
 
-const fetchData = async(url) => {
-  const result = await axios.get(url);
-  return cheerio.load(result.data);
-};
+// const fetchData = async (url) => {
+//   const result = await axios.get(url);
+//   return cheerio.load(result.data);
+// };
 
-const $ = await fetchData(url);
+// const $ = await fetchData(url);
 

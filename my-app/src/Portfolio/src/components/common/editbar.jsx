@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from 'axios'
 import "./styles/editbar.css";
 
 const EditBar = (props) => {
     const {id}=props
+    const navigate=useNavigate()
     const confirmdelete=()=>{
         if(window.confirm("정말로 삭제하시겠습니까?"))
         {
@@ -17,6 +18,7 @@ const EditBar = (props) => {
               }).then(response => {
                 if (response.data.result === "SUCCESS") {
                     alert("삭제 완료")
+                    navigate("/")
                 }
               });
         }
@@ -27,7 +29,7 @@ const EditBar = (props) => {
         <React.Fragment>
 		<div className='editbar-links'>
         <Link to="/createCV" state={{modify:true}}className='editbar-edit'>Edit</Link>
-        <Link to="/" onClick={confirmdelete} className='editbar-delete'>Delete</Link>
+        <Link to={window.location.pathname} onClick={confirmdelete} className='editbar-delete'>Delete</Link>
         </div>
         </React.Fragment>
 	);
