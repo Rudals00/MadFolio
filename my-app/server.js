@@ -193,7 +193,7 @@ app.post('/dologin',async (req,res)=>{
 
   app.post('/uploadimage/:id',upload.single('image'),(req,res)=>{
     try{
-      console.log("프로필 업로드됨")
+      // console.log("프로필 업로드됨")
       res.json({result:"OK"})
     }
     finally
@@ -204,7 +204,7 @@ app.post('/dologin',async (req,res)=>{
   });
   app.post('/uploadimage/:id/:index',upload.single('image'),(req,res)=>{
     try{
-      console.log("프로젝트 업로드됨")
+      // console.log("프로젝트 업로드됨")
       res.json({result:"OK"})
     }
     finally

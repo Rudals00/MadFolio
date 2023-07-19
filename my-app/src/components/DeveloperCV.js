@@ -106,6 +106,15 @@ function DeveloperCV(props) {
     });
   };
 
+
+  const handlExperienceChange = (index, event) => {
+    setExperienceDetails((prevDetails) => {
+      const newDetails = [...prevDetails];
+      newDetails[index][event.target.name] = event.target.value;
+      return newDetails;
+    });
+  };
+
   const handleAddEducation = (index) => {
     const newEducation = educationEntries[index];
     setEducationDetails((prevDetails) => [...prevDetails, newEducation]);
@@ -123,6 +132,15 @@ function DeveloperCV(props) {
       return newEntries;
     });
   };
+
+  const handleEducationChange = (index, event) => {
+    setEducationDetails((prevDetails) => {
+      const newDetails = [...prevDetails];
+      newDetails[index][event.target.name] = event.target.value;
+      return newDetails;
+    });
+  };
+
 
   const handleAddProject = (index) => {
     const newProject = projectEntries[index];
@@ -346,8 +364,8 @@ function DeveloperCV(props) {
               <h3>{education.name}</h3>
             </div>
             <div className="card-body">
-              <p>설명: {education.description}</p>
-              <p>기간: {education.duration}</p>
+              <p>설명: <input type="text" className="form-control" name="description" value={education.description} onChange={(event)=>handleEducationChange(index,event)} /></p>
+              <p>기간: <input type="text" className="form-control" name="duration" value={education.duration} onChange={(event)=>handleEducationChange(index,event)} /></p>
             </div>
             <div className="card-footer">
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
@@ -375,8 +393,6 @@ function DeveloperCV(props) {
           </div>
         </div>
 
-
-
         <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
           <button type="button" className="btn btn-secondary" onClick={() => handleAddFields(setEducationEntries, { name: '', description: '', duration: '' })}>
             학력 항목 추가
@@ -395,8 +411,8 @@ function DeveloperCV(props) {
               <h3>{experience.name}</h3>
             </div>
             <div className="card-body">
-              <p>설명: {experience.description}</p>
-              <p>기간: {experience.duration}</p>
+              <p>설명: <input type="text" className="form-control" name="description" value={experience.description} onChange={(event)=>handlExperienceChange(index,event)} /></p>
+              <p>기간: <input type="text" className="form-control" name="duration" value={experience.duration} onChange={(event)=>handlExperienceChange(index,event)} /></p>
             </div>
             <div className="card-footer">
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
@@ -448,7 +464,7 @@ function DeveloperCV(props) {
                 {skill.substacks.map((skill, skillIndex) => (
                   <li key={skillIndex}>
                     <div className="form-group">
-                      <label>기술명:</label>
+                      <label>기술명</label>
                       <input
                         type="text"
                         className="form-control"
@@ -458,7 +474,7 @@ function DeveloperCV(props) {
                       />
                     </div>
                     <div className="form-group">
-                      <label>설명:</label>
+                      <label>설명</label>
                       <input
                         type="text"
                         className="form-control"
@@ -545,9 +561,26 @@ function DeveloperCV(props) {
               <h3>{project.title}</h3>
             </div>
             <div className="card-body">
-              <p>설명: {project.description}</p>
-              <p>githublink: {project.link}</p>
-              <p>프로젝트 이미지: {project.image}</p>
+              <p>설명: <textarea className="form-control" name="description" value={project.description} onChange={(event) => handleInputChange(setProjectDetails, index, event)} /></p>
+              <p>githublink: <input type="text" className="form-control" name="link" value={project.link} onChange={(event) => handleInputChange(setProjectDetails, index, event)} /></p>
+              <p>프로젝트 이미지: <input type="file" className="form-control-file" name="image" value={project.image} onChange={(event) => {handleInputChange(setProjectDetails, index, event);
+                      if (!event.target.files)
+                      return
+                    const formData = new FormData();
+                    formData.append('image', event.target.files[0]);
+                
+                    axios({
+                      url: '/uploadimage/'+id+'/'+(index),
+                      method: 'post',
+                      data: formData, 
+                      headers: {
+                        'Content-Type': 'multipart/form-data'
+                      }
+                    }).then(_ => { });
+                
+                
+                }
+                  } /></p>
             </div>
             <div className="card-footer">
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>
@@ -623,7 +656,7 @@ function DeveloperCV(props) {
               {additional.content.map((subheading, subheadingIndex) => (
                 <div key={subheadingIndex}>
                   <div className="form-group">
-                    <label>소제목:</label>
+                    <label>소제목</label>
                     <input
                       type="text"
                       className="form-control"
@@ -633,7 +666,7 @@ function DeveloperCV(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label>내용:</label>
+                    <label>내용</label>
                     <textarea
                       className="form-control"
                       name="content"
