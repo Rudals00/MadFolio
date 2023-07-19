@@ -344,8 +344,8 @@ function DesignerCV(props) {
               <h3>{education.name}</h3>
             </div>
             <div className="card-body">
-              <p>설명: {education.description}</p>
-              <p>기간: {education.duration}</p>
+              <p>설명: <input type="text" className="form-control" name="description" value={education.description} onChange={(event) => handleInputChange(setEducationDetails, index, event)} /></p>
+              <p>기간: <input type="text" className="form-control" name="duration" value={education.duration} onChange={(event) => handleInputChange(setEducationDetails, index, event)} /></p>
             </div>
             <div className="card-footer">
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setEducationDetails, index)}>X</button>
@@ -393,8 +393,8 @@ function DesignerCV(props) {
               <h3>{experience.name}</h3>
             </div>
             <div className="card-body">
-              <p>설명: {experience.description}</p>
-              <p>기간: {experience.duration}</p>
+              <p>설명: <input type="text" className="form-control" name="description" value={experience.description} onChange={(event) => handleInputChange(setExperienceDetails, index, event)} /></p>
+              <p>기간: <input type="text" className="form-control" name="duration" value={experience.duration} onChange={(event) => handleInputChange(setExperienceDetails, index, event)} /></p>
             </div>
             <div className="card-footer">
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setExperienceDetails, index)}>X</button>
@@ -543,9 +543,26 @@ function DesignerCV(props) {
               <h3>{project.title}</h3>
             </div>
             <div className="card-body">
-              <p>설명: {project.description}</p>
-              <p>디자인 플랫폼 링크: {project.link}</p>
-              <p>디자인 이미지: {project.image}</p>
+              <p>설명: <textarea className="form-control" name="description" value={project.description} onChange={(event) => handleInputChange(setProjectDetails, index, event)} /></p>
+              <p>디자인 플랫폼 링크: <input type="text" className="form-control" name="link" value={project.link} onChange={(event) => handleInputChange(setProjectDetails, index, event)} /></p>
+              <p>디자인 이미지: <input type="file" className="form-control-file" name="image" onChange={(event) => {handleInputChange(setProjectDetails, index, event);
+                      if (!event.target.files)
+                      return
+                    const formData = new FormData();
+                    formData.append('image', event.target.files[0]);
+                
+                    axios({
+                      url: '/uploadimage/'+id+'/'+(index),
+                      method: 'post',
+                      data: formData, 
+                      headers: {
+                        'Content-Type': 'multipart/form-data'
+                      }
+                    }).then(_ => { });
+                
+                
+                }
+                  } /></p>
             </div>
             <div className="card-footer">
               <button type="button" className="btn btn-danger" onClick={() => handleRemove(setProjectDetails, index)}>X</button>

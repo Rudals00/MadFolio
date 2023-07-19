@@ -563,7 +563,7 @@ function DeveloperCV(props) {
             <div className="card-body">
               <p>설명: <textarea className="form-control" name="description" value={project.description} onChange={(event) => handleInputChange(setProjectDetails, index, event)} /></p>
               <p>githublink: <input type="text" className="form-control" name="link" value={project.link} onChange={(event) => handleInputChange(setProjectDetails, index, event)} /></p>
-              <p>프로젝트 이미지: <input type="file" className="form-control-file" name="image" value={project.image} onChange={(event) => {handleInputChange(setProjectDetails, index, event);
+              <p>프로젝트 이미지: <input type="file" className="form-control-file" name="image" onChange={(event) => {handleInputChange(setProjectDetails, index, event);
                       if (!event.target.files)
                       return
                     const formData = new FormData();
