@@ -225,6 +225,17 @@ app.post('/dologin',async (req,res)=>{
     }
   });
 
+  app.post('/getDesignerHireInfo',async (req,res)=>{
+    try{
+      data=await getHireData(designerurl)
+      res.json(data)
+    }
+    finally
+    {
+      // client.close();
+    }
+  });
+
 server.listen(80,()=>{
     console.log("Server on 80")
 });
@@ -242,7 +253,8 @@ const client = new MongoClient(uri, {
 // // 크롤링
 
 const url = 'https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_mcls=2&panel_type=&search_optional_item=n&search_done=y&panel_count=y&preview=y';
-
+const designerurl='https://www.saramin.co.kr/zf_user/jobs/list/job-category?cat_mcls=2&cat_kewd=1488%2C1484%2C1477%2C1486%2C1487&panel_type=&search_optional_item=n&search_done=y&panel_count=y&preview=y'
+///getDesignerHireInfo
   async function getHireData(url) 
   {
     let res=[]
