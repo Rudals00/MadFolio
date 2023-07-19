@@ -1,5 +1,6 @@
 # MadPolio
 ## Make your PERFECT portfolio
+[Visit](https://f739-143-248-193-227.ngrok-free.app/)
 ---
 Week2 4분반 경민,창우팀
 
@@ -20,13 +21,37 @@ Week2 4분반 경민,창우팀
 
 - Language: React.js, Node.js
 - Database: MongoDB
-
-```
 - IDE: Visual Studio code
 
 ---
 
 ### c. Web applicaiton 소개
+
+### 1.Create Portfolio
+***Major features***
+- 사용자가 포트폴리오에 들어갈 내용을 입력하면, 미리 만들어진 탬플릿에 해당 내용이 반영됩니다.
+- 사용자는 자신의 기본적인 정보와 학력/경력, 기술 스택(디자인 스킬), 진행한 프로젝트 정보를 입력할 수 있습니다.
+- 원하는 경우 추가 내용을 입력할 수 있으며, 제목/부제목/내용의 구조로 작성이 가능합니다.
+
+---
+
+***기술설명***
+- 사용자가 입력한 직군 정보를 통해 Designer와 Developer를 구분하여 서로 다른 form을 보여줍니다. 
+- 입력을 완료한 경우 onsubmit을 호출해 서버로 data를 넘기고, 서버에서 mongodb에 insert하는 방식입니다.
+- 사용자가 입력한 정보는 모두 useState를 통해 내용이 변화할때마다 실시간으로 업데이트 됩니다.
+
+---
+
+### 2.Edit Portfolio
+***Major features***
+- 원하는 경우 포트폴리오 내용을 수정할 수 있습니다.
+
+---
+
+***기술설명***
+- create시와 같은 form을 사용하되, 원래의 data를 가져와 미리 넣어놓습니다. 
+
+---
 
 ### 3.Search
 
@@ -38,7 +63,6 @@ Week2 4분반 경민,창우팀
 ---
 
 ***기술설명***
-- 
 - 사용자 데이터를 비동기로 가져오는 기능은 React의 useEffect와 axios 라이브러리를 이용해 구현되었습니다. 
 - 특정 시간이 지난 후에 HTTP 요청이 발생하고, 요청이 완료되면 사용자 데이터가 앱의 상태로 설정됩니다.
 - 포트폴리오를 클릭하면 navigate를 통해 portfolio의 id에 해당하는 값의 viewcv로 전환됩니다.
