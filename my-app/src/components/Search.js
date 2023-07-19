@@ -39,8 +39,7 @@ function Search() {
     const filteredPortfolios = portfolios&&portfolios.filter(
         (portfolio) =>
           portfolio.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          portfolio.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          portfolio.skills.toLowerCase().includes(searchTerm.toLowerCase())
+          portfolio.job.toLowerCase().includes(searchTerm.toLowerCase())
     );
   return (
     <div>
