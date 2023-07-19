@@ -2,6 +2,10 @@
 ## Make your PERFECT portfolio
 [Visit](https://f739-143-248-193-227.ngrok-free.app/)
 ---
+
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/8fba3bbb-cadd-4a6c-b51a-3c1949f0c239" width="1000" height="700">
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/5d0c0d7a-43b0-4b5d-8b5f-a854ab63e6a9" width="800" height="700">
+
 Week2 4분반 경민,창우팀
 
 - 개발자와 디자이너를 위해 입력한 내용을 바탕으로 포트폴리오 사이트를 생성해 줍니다.
@@ -28,6 +32,11 @@ Week2 4분반 경민,창우팀
 ### c. Web applicaiton 소개
 
 ### 1.Create Portfolio
+
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/c91b757b-aec6-443f-b19c-f682206c6ad1" width="1000" height="700">
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/081d037a-c0ff-479e-a135-c5de9eb31aff" width="1000" height="700">
+
+
 ***Major features***
 - 사용자가 포트폴리오에 들어갈 내용을 입력하면, 미리 만들어진 탬플릿에 해당 내용이 반영됩니다.
 - 사용자는 자신의 기본적인 정보와 학력/경력, 기술 스택(디자인 스킬), 진행한 프로젝트 정보를 입력할 수 있습니다.
@@ -43,6 +52,9 @@ Week2 4분반 경민,창우팀
 ---
 
 ### 2.Edit Portfolio
+
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/56d5cd7a-6d33-4bc6-8f1a-cb457ca307df" width="1000" height="700">
+
 ***Major features***
 - 원하는 경우 포트폴리오 내용을 수정할 수 있습니다.
 
@@ -54,6 +66,8 @@ Week2 4분반 경민,창우팀
 ---
 
 ### 3.Search
+
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/1cd95a9b-c770-49e1-b697-82cbf7948caa" width="1000" height="400">
 
 ***Major features***
 - 사용자가 데이터베이스에 있는 모든 포트폴리오를 검색할 수 있습니다.
@@ -69,6 +83,8 @@ Week2 4분반 경민,창우팀
 
 ---
 ### 4.Hire
+
+<img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/6cffbf84-7dab-4051-b31a-512ae7c703ee" width="1000" height="600">
 
 ***Major features***
 - 개발자와 디자이너 직무에 대한 채용공고를 제공합니다.
