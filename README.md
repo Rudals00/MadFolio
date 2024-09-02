@@ -6,7 +6,6 @@
 <img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/8fba3bbb-cadd-4a6c-b51a-3c1949f0c239" width="1000" height="700">
 <img src="https://github.com/rudals9686/madcamp_week3/assets/20718582/5d0c0d7a-43b0-4b5d-8b5f-a854ab63e6a9" width="800" height="700">
 
-Week3 4분반 경민,창우팀
 
 - 개발자와 디자이너를 위해 입력한 내용을 바탕으로 포트폴리오 사이트를 생성해 줍니다.
 - 다른 사람이 올린 포트폴리오를 검색할 수 있습니다.
@@ -15,9 +14,6 @@ Week3 4분반 경민,창우팀
 ---
 
 ### a. 개발 팀원
-
-- 이창우 - POSTECH 컴퓨터공학과 20학번
-- 김경민 - 한양대학교 컴퓨터소프트웨어학부 19학번
 
 ---
 
